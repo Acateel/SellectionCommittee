@@ -6,7 +6,27 @@
 </head>
 <body>
     <div class="container">
-        <h2>This is testing main page</h2>
+        <h2>Faculties</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">name</th>
+                <th scope="col">budget_seats</th>
+                <th scope="col">total_sears</th>
+                <th scope="col">request</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="faculty : ${faculties}">
+                    <th scope="row" th:text="${faculty.id}"></th>
+                    <th scope="row" th:text="${faculty.facultyName}"></th>
+                    <th scope="row" th:text="${faculty.budgetSeats}"></th>
+                    <th scope="row" th:text="${faculty.totalSeats}"></th>
+                    <td><a href="#">request_href</a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
