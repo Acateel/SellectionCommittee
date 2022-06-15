@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculties</title>
+    <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<div class="container">
+    <h1>All faculties</h1>
+    <form action="#" method="post">
+        <label for="order">
+            Order
+        </label>
+        <select name="order" id="order">
+            <option value="byId">By id</option>
+            <option value="byName">By name (A-Z)</option>
+            <option value="byNameRevers">By name (A-Z)</option>
+            <option value="byBudget">Be budget seats</option>
+            <option value="byTotal">By total seats</option>
+        </select>
+        <button class="btn btn-light">
+            Order
+        </button>
+    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Budget seats</th>
+            <th scope="col">Total sears</th>
+            <th scope="col">Request</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="faculty : ${faculties}">
+            <th scope="row" th:text="${faculty.id}"></th>
+            <th scope="row" th:text="${faculty.facultyName}"></th>
+            <th scope="row" th:text="${faculty.budgetSeats}"></th>
+            <th scope="row" th:text="${faculty.totalSeats}"></th>
+            <td><a href="#">Requests</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
