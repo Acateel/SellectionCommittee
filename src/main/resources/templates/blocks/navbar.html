@@ -1,0 +1,49 @@
+<div th:fragment="navbar">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">
+                    Selection committee
+                </a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="#">Faculties</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Language
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="?locale=">
+                                English
+                            </a>
+                            <a class="dropdown-item" href="?locale=uk_UA">
+                                Ukrainian
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="active">
+                        <a href="#">
+                            Login
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
