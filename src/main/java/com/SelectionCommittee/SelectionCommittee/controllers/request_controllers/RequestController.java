@@ -22,13 +22,27 @@ public class RequestController {
 
     @GetMapping("/request")
     public String showRequest(@RequestParam int facultyId, @RequestParam(required = false, defaultValue = "0") int page, Model model) {
+        page = getPage(facultyId, page);
         model.addAttribute("page", page);
 
         FacultiesEntity faculty = facultiesRepository.findById((long) facultyId).get();
         model.addAttribute("faculty", faculty);
 
-        var requests = requestRepository.findAllByFacultiesIdOrderByRatingScoreDesc(facultyId, PageRequest.of(page,PAGE_SIZE));
+        var requests = requestRepository.findAllByFacultiesIdOrderByRatingScoreDesc(facultyId, PageRequest.of(page, PAGE_SIZE));
         model.addAttribute("requests", requests);
         return "request";
+    }
+
+    private int getPage(int facultyId, int page) {
+        if (page < 0) {
+            page = 0;
+        } else {
+            int counts = requestRepository.countAllByFacultiesId(facultyId);
+            int showedCounts = page * PAGE_SIZE;
+            if (showedCounts > counts) {
+                page--;
+            }
+        }
+        return page;
     }
 }
