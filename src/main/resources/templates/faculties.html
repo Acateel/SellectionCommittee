@@ -37,7 +37,7 @@
             <th scope="row" th:text="${faculty.facultyName}"></th>
             <th scope="row" th:text="${faculty.budgetSeats}"></th>
             <th scope="row" th:text="${faculty.totalSeats}"></th>
-            <td><a href="#" th:text="#{request_href}"/></td>
+            <td><a th:href="@{/request(facultyId=${faculty.id})}" th:text="#{request_href}"/></td>
         </tr>
         </tbody>
     </table>
