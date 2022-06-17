@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{request}"></title>
+    <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<div class="container">
+    <h1 th:text="#{faculty}"/>
+    <ul>
+        <li th:text="#{name} + ' : ' + ${faculty.facultyName}"/>
+        <li th:text="#{budget_seats} + ' : ' + ${faculty.budgetSeats}"/>
+        <li th:text="#{total_sears} + ' : ' + ${faculty.totalSeats}"/>
+    </ul>
+    <form action="#" method="post">
+        <button class="btn btn-light btn-check" th:text="#{send_request}"></button>
+        <p class="text-danger" th:text="${sendRequestError}"/>
+    </form>
+    <h1 th:text="#{request}"/>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{id}"/>
+            <th scope="col" th:text="#{fullname}"/>
+            <th scope="col" th:text="#{main_subject}"/>
+            <th scope="col" th:text="#{second_subject}"/>
+            <th scope="col" th:text="#{sub_subject}"/>
+            <th scope="col" th:text="#{raging_score}"/>
+            <th scope="col" th:text="#{average_attestation_score}"/>
+            <th scope="col" th:text="#{status}"/>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${requests}">
+            <th scope="row" th:text="${request.id}"/>
+            <td th:text="${request.applicantId}"/>
+            <td th:text="${request.mainSubject}"/>
+            <td th:text="${request.secondSubject}"/>
+            <td th:text="${request.subSubject}"/>
+            <td th:text="${request.ratingScore}"/>
+            <td th:text="${request.averageAttestationScore}"/>
+            <td th:text="${request.status}"/>
+        </tr>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{/request(facultyId=${faculty.id}, page=${page}-1)}"
+                   th:text="#{previous}">
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{/request(facultyId=${faculty.id}, page=${page}+1)}"
+                   th:text="#{next}">
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
