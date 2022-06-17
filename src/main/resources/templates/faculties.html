@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Faculties</title>
+    <title th:text="#{faculties}"></title>
     <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
 </head>
 <body>
 <div th:replace="blocks/navbar :: navbar"></div>
 <div class="container">
-    <h1>All faculties</h1>
+    <h1 th:text="#{all_faculties}"></h1>
     <form action="/faculties" method="get">
-        <label for="order">
-            Order
+        <label for="order" th:text="#{order}">
+
         </label>
         <select name="order" id="order">
-            <option value="byId">By id</option>
-            <option value="byName">By name (A-Z)</option>
-            <option value="byNameRevers">By name (Z-A)</option>
-            <option value="byBudget">Be budget seats</option>
-            <option value="byTotal">By total seats</option>
+            <option value="byId" th:text="#{by_id}"/>
+            <option value="byName" th:text="#{by_name}"/>
+            <option value="byNameRevers" th:text="#{by_name_reverse}"/>
+            <option value="byBudget" th:text="#{by_budget_seats}"/>
+            <option value="byTotal" th:text="#{by_total_seats}"/>
         </select>
-        <button class="btn btn-light">
-            Order
-        </button>
+        <button class="btn btn-light" th:text="#{order_button}"/>
     </form>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Budget seats</th>
-            <th scope="col">Total sears</th>
-            <th scope="col">Request</th>
+            <th scope="col" th:text="#{id}"/>
+            <th scope="col" th:text="#{name}"/>
+            <th scope="col" th:text="#{budget_seats}"/>
+            <th scope="col" th:text="#{total_sears}"/>
+            <th scope="col" th:text="#{request}"/>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +37,7 @@
             <th scope="row" th:text="${faculty.facultyName}"></th>
             <th scope="row" th:text="${faculty.budgetSeats}"></th>
             <th scope="row" th:text="${faculty.totalSeats}"></th>
-            <td><a href="#">Requests</a></td>
+            <td><a href="#" th:text="#{request_href}"/></td>
         </tr>
         </tbody>
     </table>

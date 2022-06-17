@@ -2,14 +2,12 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand">
-                    Selection committee
-                </a>
+                <a href="/" class="navbar-brand" th:text="#{logo}"></a>
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-left">
                     <li>
-                        <a href="/faculties">Faculties</a>
+                        <a href="/faculties" th:text="#{faculties}"></a>
                     </li>
                 </ul>
             </div>
@@ -19,27 +17,20 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Language
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{language}">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="?locale=">
-                                English
-                            </a>
-                            <a class="dropdown-item" href="?locale=uk_UA">
-                                Ukrainian
-                            </a>
+                            <a class="dropdown-item" href="?locale=" th:text="#{english}"></a>
+                            <a class="dropdown-item" href="?locale=uk_UA" th:text="#{ukrainian}"></a>
                         </div>
                     </li>
 
                     <li class="active">
-                        <a href="#">
-                            Login
+                        <a href="#" th:text="#{login}">
                         </a>
                     </li>
                     <li class="active">
-                        <a href="#">
-                            Register
+                        <a href="#" th:text="#{register}">
                         </a>
                     </li>
                 </ul>
