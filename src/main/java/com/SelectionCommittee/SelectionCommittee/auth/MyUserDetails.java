@@ -1,5 +1,6 @@
 package com.SelectionCommittee.SelectionCommittee.auth;
 
+import com.SelectionCommittee.SelectionCommittee.models.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,10 +10,10 @@ import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
-    protected String username;
+    protected UserEntity user;
 
-    public MyUserDetails(String username) {
-        this.username = username;
+    public MyUserDetails(UserEntity user) {
+        this.user = user;
     }
 
     public MyUserDetails() {
@@ -20,17 +21,17 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return List.of(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
     public String getPassword() {
-        return "pass";
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getLogin();
     }
 
     @Override
