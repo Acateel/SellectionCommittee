@@ -1,4 +1,4 @@
-<div th:fragment="navbar">
+<div th:fragment="navbar" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -25,13 +25,19 @@
                         </div>
                     </li>
 
-                    <li class="active">
+                    <li class="active" sec:authorize="isAnonymous()">
                         <a href="/login" th:text="#{login}">
                         </a>
                     </li>
-                    <li class="active">
+                    <li class="active" sec:authorize="isAnonymous()">
                         <a href="#" th:text="#{register}">
                         </a>
+                    </li>
+                    <li class="active" sec:authorize="isAuthenticated()">
+
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" th:value="#{logout}"/>
+                        </form>
                     </li>
                 </ul>
             </div>
