@@ -33,6 +33,14 @@
                         <a href="#" th:text="#{register}">
                         </a>
                     </li>
+                    <li class="active" sec:authorize="hasAuthority('applicant')">
+                        <a href="#" th:text="#{applicant}">
+                        </a>
+                    </li>
+                    <li class="active" sec:authorize="hasAuthority('admin')">
+                        <a href="#" th:text="#{admin}">
+                        </a>
+                    </li>
                     <li class="active" sec:authorize="isAuthenticated()">
                         <form class="form-inline navbar-form" th:action="@{/logout}" method="post">
                             <button class="btn btn-link" type="submit" th:text="#{logout}"></button>
