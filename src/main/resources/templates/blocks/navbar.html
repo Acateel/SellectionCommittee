@@ -34,9 +34,8 @@
                         </a>
                     </li>
                     <li class="active" sec:authorize="isAuthenticated()">
-
-                        <form th:action="@{/logout}" method="post">
-                            <input type="submit" th:value="#{logout}"/>
+                        <form class="form-inline navbar-form" th:action="@{/logout}" method="post">
+                            <button class="btn btn-link" type="submit" th:text="#{logout}"></button>
                         </form>
                     </li>
                 </ul>
