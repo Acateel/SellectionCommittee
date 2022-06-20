@@ -1,22 +1,25 @@
 package com.SelectionCommittee.SelectionCommittee.controllers.auth_controlers;
 
-import com.SelectionCommittee.SelectionCommittee.auth.MyUserDetailsService;
 import com.SelectionCommittee.SelectionCommittee.models.ApplicantEntity;
 import com.SelectionCommittee.SelectionCommittee.models.UserEntity;
+import com.SelectionCommittee.SelectionCommittee.repositories.ApplicantRepository;
+import com.SelectionCommittee.SelectionCommittee.repositories.UserRepository;
 import com.SelectionCommittee.SelectionCommittee.validators.ApplicantValidator;
 import com.SelectionCommittee.SelectionCommittee.validators.UserValidator;
-import com.SelectionCommittee.SelectionCommittee.validators.Validator;
-import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Objects;
-
 @Controller
 public class RegistrationController {
+
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    ApplicantRepository applicantRepository;
 
     @GetMapping("/register")
     public String getRegistrationForm(Model model) {
@@ -48,13 +51,21 @@ public class RegistrationController {
         boolean applicantChecked = ApplicantValidator.checkApplicant(applicant, model);
         if(userChecked && applicantChecked){
             // add user and applicant to DB
-            return "auth/login";
+            if(!addToDB(user, applicant)){
+                model.addAttribute("user_exist_error", true);
+                return "auth/register";
+            }
+            else{
+                model.addAttribute("registration_complete", true);
+                return "auth/login";
+            }
         }
         return "auth/register";
     }
 
     private ApplicantEntity getApplicantEntity(String email, String lastname, String firstname, String surname, String city, String region, String education) {
         ApplicantEntity applicant = new ApplicantEntity();
+        applicant.setId(0L);
         applicant.setEmail(email);
         applicant.setLastName(lastname);
         applicant.setName(firstname);
@@ -67,11 +78,21 @@ public class RegistrationController {
 
     private UserEntity getUserEntity(String email, String password) {
         UserEntity user = new UserEntity();
+        user.setId(0L);
         user.setLogin(email);
         user.setPassword(password);
         user.setRole("applicant");
         return user;
     }
 
-
+    private boolean addToDB(UserEntity user, ApplicantEntity applicant){
+        if(userRepository.findByLogin(user.getLogin()).isPresent()){
+            return false;
+        }
+        applicantRepository.save(applicant);
+        ApplicantEntity applicantInDB = applicantRepository.findByLastNameAndNameAndSurname(applicant.getLastName(), applicant.getName(), applicant.getSurname());
+        user.setApplicantId(applicantInDB.getId());
+        userRepository.save(user);
+        return true;
+    }
 }
