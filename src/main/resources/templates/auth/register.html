@@ -22,6 +22,7 @@
                th:placeholder="#{enter}+' ' + #{email}"
                th:value="${user.login}"
                name="email" id="email" required/>
+        <div class="text-danger" th:if="${email_error}" th:text="#{email_error}"/>
 
         <label for="psw">
             <th:block th:text="#{password}"/>
@@ -31,6 +32,7 @@
                th:placeholder="#{enter}+' ' + #{password}"
                th:value="${user.password}"
                name="psw" id="psw" required/>
+        <div class="text-danger" th:if="${password_error}" th:text="#{password_error}"/>
 
         <label for="psw-repeat">
             <th:block th:text="#{password_repeat}"/>
@@ -40,6 +42,7 @@
                th:placeholder="#{enter}+' ' + #{password}"
                th:value="${psw_repeat}"
                name="psw-repeat" id="psw-repeat" required/>
+        <div class="text-danger" th:if="${password_repeat_error}" th:text="#{password_repeat_error}"/>
 
         <label for="lastname">
             <th:block th:text="#{lastname}"/>
