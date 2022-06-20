@@ -23,6 +23,7 @@
                th:value="${user.login}"
                name="email" id="email" required/>
         <div class="text-danger" th:if="${email_error}" th:text="#{email_error}"/>
+        <div class="text-danger" th:if="${user_exist_error}" th:text="#{user_exist}"/>
 
         <label for="psw">
             <th:block th:text="#{password}"/>
