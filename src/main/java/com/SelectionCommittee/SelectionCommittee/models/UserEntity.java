@@ -8,7 +8,6 @@ import java.util.Objects;
 public class UserEntity {
     @Basic
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
     @Basic
@@ -22,7 +21,7 @@ public class UserEntity {
     private String role;
     @Basic
     @Column(name = "applicant_id")
-    private Integer applicantId;
+    private Long applicantId;
 
     public Long getId() {
         return id;
@@ -56,11 +55,11 @@ public class UserEntity {
         this.role = role;
     }
 
-    public Integer getApplicantId() {
+    public Long getApplicantId() {
         return applicantId;
     }
 
-    public void setApplicantId(Integer applicantId) {
+    public void setApplicantId(Long applicantId) {
         this.applicantId = applicantId;
     }
 

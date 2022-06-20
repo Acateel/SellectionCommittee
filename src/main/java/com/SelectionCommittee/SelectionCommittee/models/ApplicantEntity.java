@@ -9,7 +9,6 @@ import java.util.Objects;
 public class ApplicantEntity {
     @Basic
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
     @Basic

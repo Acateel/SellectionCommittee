@@ -8,7 +8,6 @@ import java.util.Objects;
 public class FacultiesEntity {
     @Basic
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
     @Basic
