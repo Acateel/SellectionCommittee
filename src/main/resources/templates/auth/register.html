@@ -52,6 +52,7 @@
                th:placeholder="#{enter}+' ' + #{lastname}"
                th:value="${applicant.lastName}"
                name="lastname" id="lastname" required/>
+        <div class="text-danger" th:if="${lastname_error}" th:text="#{last_name_error}"/>
 
         <label for="firstname">
             <th:block th:text="#{firstname}"/>
@@ -61,6 +62,7 @@
                th:placeholder="#{enter}+' ' + #{firstname}"
                th:value="${applicant.name}"
                name="firstname" id="firstname" required/>
+        <div class="text-danger" th:if="${firstname_error}" th:text="#{first_name_error}"/>
 
         <label for="surname">
             <th:block th:text="#{surname}"/>
@@ -70,6 +72,7 @@
                th:placeholder="#{enter}+' ' + #{surname}"
                th:value="${applicant.surname}"
                name="surname" id="surname" required/>
+        <div class="text-danger" th:if="${surname_error}" th:text="#{surname_error}"/>
 
         <label for="city">
             <th:block th:text="#{city}"/>
@@ -79,6 +82,7 @@
                th:placeholder="#{enter}+' ' + #{city}"
                th:value="${applicant.city}"
                name="city" id="city" required/>
+        <div class="text-danger" th:if="${city_error}" th:text="#{city_error}"/>
 
         <label for="region">
             <th:block th:text="#{region}"/>
@@ -88,6 +92,7 @@
                th:placeholder="#{enter}+' ' + #{region}"
                th:value="${applicant.region}"
                name="region" id="region" required/>
+        <div class="text-danger" th:if="${region_error}" th:text="#{region_error}"/>
 
         <label for="education">
             <th:block th:text="#{education}"/>
@@ -97,6 +102,7 @@
                th:placeholder="#{enter}+' ' + #{education}"
                th:value="${applicant.nameEducationalInstitution}"
                name="education" id="education" required/>
+        <div class="text-danger" th:if="${education_error}" th:text="#{institution_error}"/>
 
         <hr>
         <button type="submit" class="button btn text-primary" th:text="#{register}"/>
