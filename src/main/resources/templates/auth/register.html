@@ -20,6 +20,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter}+' ' + #{email}"
+               th:value="${user.login}"
                name="email" id="email" required/>
 
         <label for="psw">
@@ -28,6 +29,7 @@
         </label>
         <input type="password" class="form-control"
                th:placeholder="#{enter}+' ' + #{password}"
+               th:value="${user.password}"
                name="psw" id="psw" required/>
 
         <label for="psw-repeat">
@@ -36,6 +38,7 @@
         </label>
         <input type="password" class="form-control"
                th:placeholder="#{enter}+' ' + #{password}"
+               th:value="${psw_repeat}"
                name="psw-repeat" id="psw-repeat" required/>
 
         <label for="lastname">
@@ -44,6 +47,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter}+' ' + #{lastname}"
+               th:value="${applicant.lastName}"
                name="lastname" id="lastname" required/>
 
         <label for="firstname">
@@ -52,6 +56,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter}+' ' + #{firstname}"
+               th:value="${applicant.name}"
                name="firstname" id="firstname" required/>
 
         <label for="surname">
@@ -60,6 +65,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter}+' ' + #{surname}"
+               th:value="${applicant.surname}"
                name="surname" id="surname" required/>
 
         <label for="city">
@@ -68,6 +74,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter}+' ' + #{city}"
+               th:value="${applicant.city}"
                name="city" id="city" required/>
 
         <label for="region">
@@ -76,6 +83,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter}+' ' + #{region}"
+               th:value="${applicant.region}"
                name="region" id="region" required/>
 
         <label for="education">
@@ -84,6 +92,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter}+' ' + #{education}"
+               th:value="${applicant.nameEducationalInstitution}"
                name="education" id="education" required/>
 
         <hr>
