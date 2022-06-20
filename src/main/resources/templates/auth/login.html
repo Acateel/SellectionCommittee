@@ -42,6 +42,7 @@
     <div class="div-center">
         <div class="content">
             <form th:action="@{/login}" method="post">
+                <div class="text-success" th:if="${registration_complete}" th:text="#{register_complete}"/>
                 <div class="form-group">
                     <label for="username" th:text="#{login_field}"/>
                     <input name="username" type="text" class="form-control" id="username" th:placeholder="#{login_field}"/>
