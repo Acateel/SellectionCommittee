@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{register}"></title>
+    <th:block th:replace="blocks/bootstrapHead :: bootstrap"/>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+
+<form action="#">
+    <div class="container">
+        <h1 th:text="#{register}"/>
+        <p th:text="#{register_message}"/>
+        <hr>
+        <em class="text-danger" th:text="#{required}"/>
+        <br/>
+        <label for="email">
+            <th:block th:text="#{email}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter}+' ' + #{email}"
+               name="email" id="email" required/>
+
+        <label for="psw">
+            <th:block th:text="#{password}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="password" class="form-control"
+               th:placeholder="#{enter}+' ' + #{password}"
+               name="psw" id="psw" required/>
+
+        <label for="psw-repeat">
+            <th:block th:text="#{password_repeat}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="password" class="form-control"
+               th:placeholder="#{enter}+' ' + #{password}"
+               name="psw-repeat" id="psw-repeat" required/>
+
+        <label for="lastname">
+            <th:block th:text="#{lastname}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter}+' ' + #{lastname}"
+               name="lastname" id="lastname" required/>
+
+        <label for="firstname">
+            <th:block th:text="#{firstname}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter}+' ' + #{firstname}"
+               name="firstname" id="firstname" required/>
+
+        <label for="surname">
+            <th:block th:text="#{surname}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter}+' ' + #{surname}"
+               name="surname" id="surname" required/>
+
+        <label for="city">
+            <th:block th:text="#{city}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter}+' ' + #{city}"
+               name="city" id="city" required/>
+
+        <label for="region">
+            <th:block th:text="#{region}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter}+' ' + #{region}"
+               name="region" id="region" required/>
+
+        <label for="education">
+            <th:block th:text="#{education}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter}+' ' + #{education}"
+               name="education" id="education" required/>
+
+        <hr>
+        <button type="submit" class="button btn text-primary" th:text="#{register}"/>
+    </div>
+
+    <div class="container">
+        <p>
+            <th:block th:text="#{login_message}"/>
+            <a href="/login" th:text="#{login}"/>.
+        </p>
+    </div>
+</form>
+</body>
+</html>
