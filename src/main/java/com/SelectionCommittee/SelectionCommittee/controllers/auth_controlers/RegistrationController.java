@@ -57,6 +57,8 @@ public class RegistrationController {
             }
             else{
                 model.addAttribute("registration_complete", true);
+                model.addAttribute("login", user.getLogin());
+                model.addAttribute("password", user.getPassword());
                 return "auth/login";
             }
         }
