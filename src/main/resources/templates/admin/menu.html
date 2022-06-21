@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{admin_menu}"></title>
+    <th:block th:replace="blocks/bootstrapHead :: bootstrap"/>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<div class="container">
+    <a href="#">
+        <button type="button" class="btn btn-light btn-lg btn-block" th:text="#{faculties_menu}"/>
+    </a>
+    <br/>
+    <a href="#">
+        <button type="button" class="btn btn-light btn-lg btn-block" th:text="#{applicants}"/>
+    </a>
+    <br/>
+    <a href="#">
+        <button type="button" class="btn btn-warning btn-lg btn-block" th:text="#{finalise_information}"/>
+    </a>
+</div>
+</body>
+</html>
