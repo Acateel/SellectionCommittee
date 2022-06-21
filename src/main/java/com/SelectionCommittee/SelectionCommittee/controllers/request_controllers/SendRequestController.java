@@ -1,18 +1,24 @@
 package com.SelectionCommittee.SelectionCommittee.controllers.request_controllers;
 
 import com.SelectionCommittee.SelectionCommittee.models.RequestEntity;
+import com.SelectionCommittee.SelectionCommittee.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.sql.Time;
 import java.util.Date;
 
 @Controller
 public class SendRequestController {
 
+    @Autowired
+    protected UserRepository userRepository;
     private int facultyId;
     @GetMapping("/send_request")
     public String getSendRequestForm(@RequestParam int facultyId, Model model){
@@ -25,8 +31,9 @@ public class SendRequestController {
                                     @RequestParam(name = "second_subject") int secondSubject,
                                     @RequestParam(name = "sub_subject") int subSubject,
                                     @RequestParam(name = "average_attestation_score") double attestationScore,
-                                    Model model){
-        RequestEntity request = getRequest(mainSubject, secondSubject, subSubject, attestationScore);
+                                    Model model,
+                                    Principal principal){
+        RequestEntity request = getRequest(mainSubject, secondSubject, subSubject, attestationScore, principal.getName());
         addParamsIntoModel(mainSubject, secondSubject, subSubject, attestationScore, model);
 
         return "send_request";
@@ -39,12 +46,12 @@ public class SendRequestController {
         model.addAttribute("average_attestation_score", attestationScore);
     }
 
-    private RequestEntity getRequest(int mainSubject, int secondSubject, int subSubject, double attestationScore) {
+    private RequestEntity getRequest(int mainSubject, int secondSubject, int subSubject, double attestationScore, String username) {
         RequestEntity request = new RequestEntity();
         request.setId(0L);
         request.setStatus("not processed");
         request.setFacultiesId(facultyId);
-        //        request.setApplicantId(); add from security
+        request.setApplicantId(userRepository.findByLogin(username).get().getApplicantId());
         request.setMainSubject(mainSubject);
         request.setSecondSubject(secondSubject);
         request.setSubSubject(subSubject);
