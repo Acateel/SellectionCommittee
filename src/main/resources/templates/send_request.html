@@ -58,7 +58,10 @@
 
         <hr>
         <button type="submit" class="button btn btn-light" th:text="#{send_request}"/>
+        <p class="text-danger" th:if="${applicant_block}" th:text="#{applicant_blocked}"/>
+        <p class="text-danger" th:if="${request_not_unique}" th:text="#{send_request_exist}"/>
     </div>
+
 </form>
 </body>
 </html>
