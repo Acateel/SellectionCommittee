@@ -8,6 +8,11 @@
 <div th:replace="blocks/navbar :: navbar"></div>
 <div class="container">
     <h1 th:text="#{all_faculties}"></h1>
+
+    <div sec:authorize="hasAuthority('admin')">
+        <a href="#" th:text="#{add_faculty}"/>
+    </div>
+
     <form action="/faculties" method="get">
         <label for="order" th:text="#{order}">
 
