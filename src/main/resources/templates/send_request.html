@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{send_request}"></title>
+    <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<form action="#">
+    <div class="container">
+        <h1 th:text="#{send_request}"/>
+        <p th:text="#{send_request_message}"/>
+        <em class="text-danger" th:text="#{required}"/>
+        <br/>
+        <label for="main_subject">
+            <th:block th:text="#{main_subject}"></th:block>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{score}"
+               name="main_subject"
+               id="main_subject" required/>
+        <p class="text-danger" th:if="${main_subject_error}" th:text="#{score_not_format}"/>
+
+        <label for="second_subject">
+            <th:block th:text="#{second_subject}"></th:block>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{score}"
+               name="second_subject"
+               id="second_subject" required/>
+        <p class="text-danger" th:if="${second_subject_error}" th:text="#{score_not_format}"/>
+
+        <label for="sub_subject">
+            <th:block th:text="#{sub_subject}"></th:block>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{score}"
+               name="sub_subject"
+               id="sub_subject" required/>
+        <p class="text-danger" th:if="${sub_subject_error}" th:text="#{score_not_format}"/>
+
+        <label for="average_attestation_score">
+            <th:block th:text="#{average_attestation_score}"></th:block>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{score}"
+               name="average_attestation_score"
+               id="average_attestation_score" required/>
+        <p class="text-danger" th:if="${attestation_score_error}" th:text="#{score_attestation_not_format}"/>
+
+        <hr>
+        <button type="submit" class="button btn btn-light" th:text="#{send_request}"/>
+    </div>
+</form>
+</body>
+</html>
