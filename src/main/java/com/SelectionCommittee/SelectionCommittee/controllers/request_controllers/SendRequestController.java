@@ -52,7 +52,7 @@ public class SendRequestController {
             if (checkedBlock || checkedUnique) {
                 return "send_request";
             } else {
-                // add to DB
+                requestRepository.save(request);
                 model.addAttribute("request_send_complete", true);
                 return "main";
             }
