@@ -6,5 +6,10 @@
 </head>
 <body>
     <div th:replace="blocks/navbar :: navbar"></div>
+    <div class="container">
+        <div class="text-success" th:if="${request_send_complete}">
+            <h2 th:text="#{send_request_success}"/>
+        </div>
+    </div>
 </body>
 </html>

@@ -19,7 +19,7 @@ public class RequestEntity {
     private int facultiesId;
     @Basic
     @Column(name = "applicant_id")
-    private int applicantId;
+    private Long applicantId;
     @Basic
     @Column(name = "main_subject")
     private int mainSubject;
@@ -63,11 +63,11 @@ public class RequestEntity {
         this.facultiesId = facultiesId;
     }
 
-    public int getApplicantId() {
+    public Long getApplicantId() {
         return applicantId;
     }
 
-    public void setApplicantId(int applicantId) {
+    public void setApplicantId(Long applicantId) {
         this.applicantId = applicantId;
     }
 
