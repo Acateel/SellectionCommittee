@@ -1,6 +1,10 @@
 package com.SelectionCommittee.SelectionCommittee.controllers.request_controllers;
 
+import com.SelectionCommittee.SelectionCommittee.models.ApplicantEntity;
 import com.SelectionCommittee.SelectionCommittee.models.RequestEntity;
+import com.SelectionCommittee.SelectionCommittee.models.UserEntity;
+import com.SelectionCommittee.SelectionCommittee.repositories.ApplicantRepository;
+import com.SelectionCommittee.SelectionCommittee.repositories.RequestRepository;
 import com.SelectionCommittee.SelectionCommittee.repositories.UserRepository;
 import com.SelectionCommittee.SelectionCommittee.validators.RequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +23,15 @@ public class SendRequestController {
 
     @Autowired
     protected UserRepository userRepository;
+    @Autowired
+    protected ApplicantRepository applicantRepository;
+    @Autowired
+    protected RequestRepository requestRepository;
 
     private int facultyId;
+
     @GetMapping("/send_request")
-    public String getSendRequestForm(@RequestParam int facultyId, Model model){
+    public String getSendRequestForm(@RequestParam int facultyId, Model model) {
         this.facultyId = facultyId;
         return "send_request";
     }
@@ -33,12 +42,20 @@ public class SendRequestController {
                                     @RequestParam(name = "sub_subject") int subSubject,
                                     @RequestParam(name = "average_attestation_score") double attestationScore,
                                     Model model,
-                                    Principal principal){
+                                    Principal principal) {
         RequestEntity request = getRequest(mainSubject, secondSubject, subSubject, attestationScore, principal.getName());
         addParamsIntoModel(mainSubject, secondSubject, subSubject, attestationScore, model);
 
-        if(RequestValidator.checkRequest(request, model)){
-            return "send_request"; // temporary
+        if (RequestValidator.checkRequest(request, model)) {
+            boolean checkedBlock = checkApplicantBlock(request.getApplicantId(), model);
+            boolean checkedUnique = checkRequestUnique(request, model);
+            if (checkedBlock || checkedUnique) {
+                return "send_request";
+            } else {
+                // add to DB
+                model.addAttribute("request_send_complete", true);
+                return "main";
+            }
         }
 
         return "send_request";
@@ -65,5 +82,23 @@ public class SendRequestController {
         request.setPublishTime(new Time(new Date().getTime()));
 
         return request;
+    }
+
+    private boolean checkApplicantBlock(Long applicantId, Model model) {
+        ApplicantEntity applicant = applicantRepository.findById(applicantId).get();
+        if (applicant.getBlock() == 1) {
+            model.addAttribute("applicant_block", true);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkRequestUnique(RequestEntity request, Model model) {
+        RequestEntity requestInDB = requestRepository.findByFacultiesIdAndApplicantId(request.getFacultiesId(), request.getApplicantId());
+        if (requestInDB != null) {
+            model.addAttribute("request_not_unique", true);
+            return true;
+        }
+        return false;
     }
 }
