@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:replace="blocks/navbar :: navbar"></div>
-<form action="#">
+<form th:action="@{/send_request}" method="post">
     <div class="container">
         <h1 th:text="#{send_request}"/>
         <p th:text="#{send_request_message}"/>
@@ -18,6 +18,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter} + ' ' + #{score}"
+               th:value="${main_subject}"
                name="main_subject"
                id="main_subject" required/>
         <p class="text-danger" th:if="${main_subject_error}" th:text="#{score_not_format}"/>
@@ -28,6 +29,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter} + ' ' + #{score}"
+               th:value="${second_subject}"
                name="second_subject"
                id="second_subject" required/>
         <p class="text-danger" th:if="${second_subject_error}" th:text="#{score_not_format}"/>
@@ -38,6 +40,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter} + ' ' + #{score}"
+               th:value="${sub_subject}"
                name="sub_subject"
                id="sub_subject" required/>
         <p class="text-danger" th:if="${sub_subject_error}" th:text="#{score_not_format}"/>
@@ -48,6 +51,7 @@
         </label>
         <input type="text" class="form-control"
                th:placeholder="#{enter} + ' ' + #{score}"
+               th:value="${average_attestation_score}"
                name="average_attestation_score"
                id="average_attestation_score" required/>
         <p class="text-danger" th:if="${attestation_score_error}" th:text="#{score_attestation_not_format}"/>
