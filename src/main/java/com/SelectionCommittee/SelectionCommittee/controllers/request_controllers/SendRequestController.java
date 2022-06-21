@@ -2,8 +2,8 @@ package com.SelectionCommittee.SelectionCommittee.controllers.request_controller
 
 import com.SelectionCommittee.SelectionCommittee.models.RequestEntity;
 import com.SelectionCommittee.SelectionCommittee.repositories.UserRepository;
+import com.SelectionCommittee.SelectionCommittee.validators.RequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +19,7 @@ public class SendRequestController {
 
     @Autowired
     protected UserRepository userRepository;
+
     private int facultyId;
     @GetMapping("/send_request")
     public String getSendRequestForm(@RequestParam int facultyId, Model model){
@@ -35,6 +36,10 @@ public class SendRequestController {
                                     Principal principal){
         RequestEntity request = getRequest(mainSubject, secondSubject, subSubject, attestationScore, principal.getName());
         addParamsIntoModel(mainSubject, secondSubject, subSubject, attestationScore, model);
+
+        if(RequestValidator.checkRequest(request, model)){
+            return "send_request"; // temporary
+        }
 
         return "send_request";
     }
