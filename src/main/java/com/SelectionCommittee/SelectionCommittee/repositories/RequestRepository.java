@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface RequestRepository extends PagingAndSortingRepository<RequestEntity, Long> {
     List<RequestEntity> findAllByFacultiesIdOrderByRatingScoreDesc(int facultiesId, Pageable pageable);
+    RequestEntity findByFacultiesIdAndApplicantId(int facultyId, long applicantId);
     int countAllByFacultiesId(int facultiesId);
 }
