@@ -13,10 +13,10 @@
         <li th:text="#{budget_seats} + ' : ' + ${faculty.budgetSeats}"/>
         <li th:text="#{total_sears} + ' : ' + ${faculty.totalSeats}"/>
     </ul>
-    <form th:action="@{/send_request(facultyId=faculty.id)}" method="get">
-        <button class="btn btn-light btn-check" th:text="#{send_request}"></button>
-        <p class="text-danger" th:text="${sendRequestError}"/>
-    </form>
+    <a th:href="@{/send_request(facultyId=${faculty.id})}"
+       class="btn btn-secondary"
+       role="button"
+       th:text="#{send_request}"/>
     <h1 th:text="#{request}"/>
     <table class="table table-striped">
         <thead>
