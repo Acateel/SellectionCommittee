@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{add_faculty}"></title>
+    <th:block th:replace="blocks/bootstrapHead :: bootstrap"/>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<form action="#">
+    <div class="container">
+        <h1 th:text="#{add_faculty}"/>
+        <hr>
+        <em class="text-danger" th:text="#{required}"/>
+        <br/>
+        <label for="faculty_name">
+            <th:block th:text="#{name}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{name}"
+               name="faculty_name"
+               id="faculty_name" required/>
+        <br/>
+        <label for="budget_seats">
+            <th:block th:text="#{budget_seats}"/>
+            <span class="text-danger">*</span></label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{budget_seats}"
+               name="budget_seats"
+               id="budget_seats" required/>
+        <br/>
+        <label for="total_seats">
+            <th:block th:text="#{total_sears}"/>
+            <span class="text-danger">*</span></label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{total_sears}"
+               name="total_seats"
+               id="total_seats" required/>
+
+        <hr>
+        <button type="submit" class="button btn btn-light" th:text="#{add_faculty}"/>
+    </div>
+</form>
+</body>
+</html>
