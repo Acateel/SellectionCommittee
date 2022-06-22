@@ -17,4 +17,9 @@ public class FacultiesModerationController {
         facultiesRepository.deleteById((long) facultyId);
         return "redirect:/faculties";
     }
+
+    @GetMapping("/add_faculty")
+    public String getAddFacultyForm(Model model){
+        return "admin/add_faculty";
+    }
 }

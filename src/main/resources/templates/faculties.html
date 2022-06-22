@@ -10,7 +10,7 @@
     <h1 th:text="#{all_faculties}"></h1>
 
     <div sec:authorize="hasAuthority('admin')">
-        <a href="#" th:text="#{add_faculty}"/>
+        <a th:href="@{/add_faculty}" th:text="#{add_faculty}"/>
     </div>
 
     <form action="/faculties" method="get">
