@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/send_request").hasAuthority("applicant")
                     .antMatchers("/admin_menu",
                             "/delete",
+                            "/finalize",
                             "/add_faculty",
                             "/change_faculty",
                             "/add_to_realize",
