@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class FacultiesController {
     @Autowired
-    private FacultiesRepository facultiesRepository;
-    private static final String FACULTY_PAGE = "faculties";
-    private static final String FACULTIES_ATTRIBUTE_NAME = "faculties";
+    protected FacultiesRepository facultiesRepository;
+    protected static final String FACULTY_PAGE = "faculties";
+    protected static final String FACULTIES_ATTRIBUTE_NAME = "faculties";
 
     @GetMapping("/faculties")
     public String showFacultiesByOrder(@RequestParam(required = false, defaultValue = "byId") String order, Model model){
