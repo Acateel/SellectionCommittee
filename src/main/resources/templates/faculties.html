@@ -46,7 +46,7 @@
             <th scope="row" th:text="${faculty.totalSeats}"></th>
             <td><a th:href="@{/request(facultyId=${faculty.id})}" th:text="#{request_href}"/></td>
             <td sec:authorize="hasAuthority('admin')">
-                <a href="#" th:text="#{delete}"/>
+                <a th:href="@{/delete(facultyId=${faculty.id})}" th:text="#{delete}"/>
             </td>
             <td sec:authorize="hasAuthority('admin')">
                 <a href="#" th:text="#{change}"/>
