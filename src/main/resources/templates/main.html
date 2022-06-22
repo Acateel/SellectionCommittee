@@ -10,6 +10,9 @@
         <div class="text-success" th:if="${request_send_complete}">
             <h2 th:text="#{send_request_success}"/>
         </div>
+        <div class="text-success" th:if="${finalize_complete}">
+            <h2 th:text="#{finalize_complete}"/>
+        </div>
     </div>
 </body>
 </html>
