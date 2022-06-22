@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{applicants}"></title>
+    <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<div class="container">
+    <h1 th:text="#{all_applicants}"/>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{id}"/>
+            <th scope="col" th:text="#{lastname}"/>
+            <th scope="col" th:text="#{firstname}"/>
+            <th scope="col" th:text="#{surname}"/>
+            <th scope="col" th:text="#{status}"/>
+            <th scope="col" th:text="#{block}"/>
+            <th scope="col" th:text="#{remove_block}"/>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="applicant : ${applicants}">
+                <th scope="row" th:text="${applicant.id}"/>
+                <td th:text="${applicant.lastName}"/>
+                <td th:text="${applicant.name}"/>
+                <td th:text="${applicant.surname}"/>
+                <td th:text="${applicant.block}"/>
+                <td>
+                    <a th:href="@{/block_applicant(applicantId=${applicant.id})}" th:text="#{block}"/>
+                </td>
+                <td>
+                    <a th:href="@{/deblock_applicant(applicantId=${applicant.id})}" th:text="#{remove_block}"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

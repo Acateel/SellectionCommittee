@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{change_faculty}"></title>
+    <th:block th:replace="blocks/bootstrapHead :: bootstrap"/>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<form th:action="@{/change_faculty}" method="post">
+    <div class="container">
+        <h1 th:text="#{change_faculty}"/>
+        <hr>
+        <em class="text-danger" th:text="#{required}"/>
+        <br/>
+        <label for="faculty_name">
+            <th:block th:text="#{name}"/>
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{name}"
+               th:value="${faculty.facultyName}"
+               name="faculty_name"
+               id="faculty_name" required/>
+        <br/>
+        <label for="budget_seats">
+            <th:block th:text="#{budget_seats}"/>
+            <span class="text-danger">*</span></label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{budget_seats}"
+               th:value="${faculty.budgetSeats}"
+               name="budget_seats"
+               id="budget_seats" required/>
+        <br/>
+        <label for="total_seats">
+            <th:block th:text="#{total_sears}"/>
+            <span class="text-danger">*</span></label>
+        <input type="text" class="form-control"
+               th:placeholder="#{enter} + ' ' + #{total_sears}"
+               th:value="${faculty.totalSeats}"
+               name="total_seats"
+               id="total_seats" required/>
+
+        <hr>
+        <button type="submit" class="button btn btn-light" th:text="#{add_faculty}"/>
+    </div>
+</form>
+</body>
+</html>

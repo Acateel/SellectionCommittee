@@ -38,7 +38,7 @@
                         </a>
                     </li>
                     <li class="active" sec:authorize="hasAuthority('admin')">
-                        <a href="#" th:text="#{admin}">
+                        <a href="/admin_menu" th:text="#{admin}">
                         </a>
                     </li>
                     <li class="active" sec:authorize="isAuthenticated()">

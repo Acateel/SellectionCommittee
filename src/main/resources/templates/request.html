@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title th:text="#{request}"></title>
     <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
@@ -29,6 +29,7 @@
             <th scope="col" th:text="#{raging_score}"/>
             <th scope="col" th:text="#{average_attestation_score}"/>
             <th scope="col" th:text="#{status}"/>
+            <th scope="col" sec:authorize="hasAuthority('admin')" th:text="#{add_to_realize}"/>
         </tr>
         </thead>
         <tbody>
@@ -41,6 +42,9 @@
             <td th:text="${request.ratingScore}"/>
             <td th:text="${request.averageAttestationScore}"/>
             <td th:text="${request.status}"/>
+            <td sec:authorize="hasAuthority('admin')">
+                <a th:href="@{/add_to_realize(facultyId=${faculty.id}, requestId=${request.id})}" th:text="#{add_to_realize}"/>
+            </td>
         </tr>
         </tbody>
     </table>

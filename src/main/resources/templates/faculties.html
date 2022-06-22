@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title th:text="#{faculties}"></title>
     <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
@@ -8,6 +8,11 @@
 <div th:replace="blocks/navbar :: navbar"></div>
 <div class="container">
     <h1 th:text="#{all_faculties}"></h1>
+
+    <div sec:authorize="hasAuthority('admin')">
+        <a th:href="@{/add_faculty}" th:text="#{add_faculty}"/>
+    </div>
+
     <form action="/faculties" method="get">
         <label for="order" th:text="#{order}">
 
@@ -29,6 +34,8 @@
             <th scope="col" th:text="#{budget_seats}"/>
             <th scope="col" th:text="#{total_sears}"/>
             <th scope="col" th:text="#{request}"/>
+            <th scope="col" sec:authorize="hasAuthority('admin')" th:text="#{delete}"/>
+            <th scope="col" sec:authorize="hasAuthority('admin')" th:text="#{change}"/>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +45,12 @@
             <th scope="row" th:text="${faculty.budgetSeats}"></th>
             <th scope="row" th:text="${faculty.totalSeats}"></th>
             <td><a th:href="@{/request(facultyId=${faculty.id})}" th:text="#{request_href}"/></td>
+            <td sec:authorize="hasAuthority('admin')">
+                <a th:href="@{/delete(facultyId=${faculty.id})}" th:text="#{delete}"/>
+            </td>
+            <td sec:authorize="hasAuthority('admin')">
+                <a th:href="@{/change_faculty(facultyId=${faculty.id})}" th:text="#{change}"/>
+            </td>
         </tr>
         </tbody>
     </table>
