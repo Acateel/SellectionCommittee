@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:replace="blocks/navbar :: navbar"></div>
-<form action="#">
+<form th:action="@{/add_faculty}" method="post">
     <div class="container">
         <h1 th:text="#{add_faculty}"/>
         <hr>
