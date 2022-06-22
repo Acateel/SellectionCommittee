@@ -49,7 +49,7 @@
                 <a th:href="@{/delete(facultyId=${faculty.id})}" th:text="#{delete}"/>
             </td>
             <td sec:authorize="hasAuthority('admin')">
-                <a href="#" th:text="#{change}"/>
+                <a th:href="@{/change_faculty(facultyId=${faculty.id})}" th:text="#{change}"/>
             </td>
         </tr>
         </tbody>
