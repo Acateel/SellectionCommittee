@@ -6,11 +6,13 @@
 </head>
 <body>
 <div th:replace="blocks/navbar :: navbar"></div>
-<div class="container">
-    <h2 class="text-danger" th:text="#{error_happened}"/>
-    <div th:if="forbidden">
-        <h2 class="text-danger" th:text="#{forbidden}"/>
-    </div>
+<div class="container text-danger">
+    <h2 th:text="#{error_happened}"/>
+    <h2 th:text="${status}"/>
+    <h3 th:if="${status == 400}" th:text="#{argument_exception}"/>
+    <h3 th:if="${status == 403}" th:text="#{forbidden}"/>
+    <h3 th:if="${status == 404}" th:text="#{not_found}"/>
+    <h3 th:if="${status == 500}" th:text="#{server_exception}"/>
 </div>
 </body>
 </html>
