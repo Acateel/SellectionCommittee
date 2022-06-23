@@ -21,7 +21,10 @@ public class RequestController {
     private static final int PAGE_SIZE = 7;
 
     @GetMapping("/request")
-    public String showRequest(@RequestParam int facultyId, @RequestParam(required = false, defaultValue = "0") int page, Model model) {
+    public String showRequest(@RequestParam(required = false, defaultValue = "0") int facultyId, @RequestParam(required = false, defaultValue = "0") int page, Model model) {
+        if(facultyId == 0){
+            return "redirect:/faculties";
+        }
         page = getPage(facultyId, page);
         model.addAttribute("page", page);
 
