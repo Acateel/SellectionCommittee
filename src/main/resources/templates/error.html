@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{error_page}"></title>
+    <th:block th:replace="blocks/bootstrapHead :: bootstrap"/>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<div class="container">
+    <h2 class="text-danger" th:text="#{error_happened}"/>
+    <div th:if="forbidden">
+        <h2 class="text-danger" th:text="#{forbidden}"/>
+    </div>
+</div>
+</body>
+</html>
