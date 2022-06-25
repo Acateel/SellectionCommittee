@@ -2,11 +2,11 @@ package com.SelectionCommittee.SelectionCommittee.controllers.request_controller
 
 import com.SelectionCommittee.SelectionCommittee.models.ApplicantEntity;
 import com.SelectionCommittee.SelectionCommittee.models.RequestEntity;
-import com.SelectionCommittee.SelectionCommittee.models.UserEntity;
 import com.SelectionCommittee.SelectionCommittee.repositories.ApplicantRepository;
 import com.SelectionCommittee.SelectionCommittee.repositories.RequestRepository;
 import com.SelectionCommittee.SelectionCommittee.repositories.UserRepository;
 import com.SelectionCommittee.SelectionCommittee.validators.RequestValidator;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +19,7 @@ import java.sql.Time;
 import java.util.Date;
 
 @Controller
+@Log4j2
 public class SendRequestController {
 
     @Autowired
@@ -32,6 +33,7 @@ public class SendRequestController {
 
     @GetMapping("/send_request")
     public String getSendRequestForm(@RequestParam int facultyId, Model model) {
+        log.info("show send request form");
         this.facultyId = facultyId;
         return "send_request";
     }
@@ -43,6 +45,7 @@ public class SendRequestController {
                                     @RequestParam(name = "average_attestation_score") double attestationScore,
                                     Model model,
                                     Principal principal) {
+        log.info("Send request, Input: main={}, second={}, sub={}, average={}", mainSubject, secondSubject, subSubject, attestationScore);
         RequestEntity request = getRequest(mainSubject, secondSubject, subSubject, attestationScore, principal.getName());
         addParamsIntoModel(mainSubject, secondSubject, subSubject, attestationScore, model);
 
@@ -53,11 +56,12 @@ public class SendRequestController {
                 return "send_request";
             } else {
                 requestRepository.save(request);
+                log.info("Save request in DB");
                 model.addAttribute("request_send_complete", true);
                 return "main";
             }
         }
-
+        log.warn("Did not passed request validator");
         return "send_request";
     }
 
@@ -87,6 +91,7 @@ public class SendRequestController {
     private boolean checkApplicantBlock(Long applicantId, Model model) {
         ApplicantEntity applicant = applicantRepository.findById(applicantId).get();
         if (applicant.getBlock() == 1) {
+            log.warn("Check applicant block false, applicant id = {}", applicant.getId());
             model.addAttribute("applicant_block", true);
             return true;
         }
@@ -96,6 +101,7 @@ public class SendRequestController {
     private boolean checkRequestUnique(RequestEntity request, Model model) {
         RequestEntity requestInDB = requestRepository.findByFacultiesIdAndApplicantId(request.getFacultiesId(), request.getApplicantId());
         if (requestInDB != null) {
+            log.warn("Check request unique false, request id = {}", requestInDB.getId());
             model.addAttribute("request_not_unique", true);
             return true;
         }
