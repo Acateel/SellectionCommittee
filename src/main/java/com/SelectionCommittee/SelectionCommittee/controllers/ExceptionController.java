@@ -1,17 +1,15 @@
 package com.SelectionCommittee.SelectionCommittee.controllers;
 
-import org.springframework.http.HttpStatus;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
+@Log4j2
 public class ExceptionController {
 
     private static final String ERROR_PAGE = "error";
@@ -19,6 +17,7 @@ public class ExceptionController {
     @GetMapping("/error")
     public String showError(Model model, HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        log.error("Error happened, status: {}", status);
         model.addAttribute("status", status);
         return ERROR_PAGE;
     }
