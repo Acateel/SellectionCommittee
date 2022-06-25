@@ -2,12 +2,14 @@ package com.SelectionCommittee.SelectionCommittee.finalizers;
 
 import com.SelectionCommittee.SelectionCommittee.models.FacultiesEntity;
 import com.SelectionCommittee.SelectionCommittee.models.RequestEntity;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
 @Service
+@Log4j2
 public class BasicFinalizer extends Finalizer {
 
 
@@ -22,6 +24,7 @@ public class BasicFinalizer extends Finalizer {
 
     @Override
     public void finalizeRequests(){
+        log.info("Finalize requests");
         var faculties = facultiesRepository.findAll();
         precessed(faculties);
         setBudget(faculties);
@@ -29,6 +32,7 @@ public class BasicFinalizer extends Finalizer {
     }
 
     private void setBudget(Iterable<FacultiesEntity> faculties){
+        log.info("Set budgets");
         for (FacultiesEntity faculty : faculties) {
             var requests = requestRepository.findAllByFacultiesIdAndStatusOrderByRatingScoreDesc(Math.toIntExact(faculty.getId()), ALLOWED);
             int count = 0;
@@ -47,6 +51,7 @@ public class BasicFinalizer extends Finalizer {
     }
 
     private void seContract(Iterable<FacultiesEntity> faculties){
+        log.info("Set contracts");
         for (FacultiesEntity faculty : faculties) {
             var requests = requestRepository.findAllByFacultiesIdAndStatusOrderByRatingScoreDesc(Math.toIntExact(faculty.getId()), ALLOWED);
             int count = 0;
@@ -73,6 +78,7 @@ public class BasicFinalizer extends Finalizer {
     }
 
     private void precessed(Iterable<FacultiesEntity> faculties){
+        log.info("Set ratting score");
         for (FacultiesEntity faculty : faculties) {
             var requests = requestRepository.findAllByFacultiesIdOrderByRatingScoreDesc(Math.toIntExact(faculty.getId()), Pageable.unpaged());
             for (RequestEntity request : requests) {
