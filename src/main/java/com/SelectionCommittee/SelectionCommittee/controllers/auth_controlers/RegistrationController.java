@@ -6,6 +6,7 @@ import com.SelectionCommittee.SelectionCommittee.repositories.ApplicantRepositor
 import com.SelectionCommittee.SelectionCommittee.repositories.UserRepository;
 import com.SelectionCommittee.SelectionCommittee.validators.ApplicantValidator;
 import com.SelectionCommittee.SelectionCommittee.validators.UserValidator;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@Log4j2
 public class RegistrationController {
 
     @Autowired
@@ -23,6 +25,7 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String getRegistrationForm(Model model) {
+        log.info("Show registration form");
         model.addAttribute("user", new UserEntity());
         model.addAttribute("applicant", new ApplicantEntity());
         return "auth/register";
@@ -39,7 +42,7 @@ public class RegistrationController {
                                @RequestParam(name = "region") String region,
                                @RequestParam(name = "education") String education,
                                Model model) {
-
+        log.info("Registration");
         UserEntity user = getUserEntity(email, password);
         model.addAttribute("user", user);
         model.addAttribute("psw_repeat", passwordRepeat);
@@ -62,6 +65,7 @@ public class RegistrationController {
                 return "auth/login";
             }
         }
+        log.warn("Validator did not pass");
         return "auth/register";
     }
 
@@ -88,13 +92,16 @@ public class RegistrationController {
     }
 
     private boolean addToDB(UserEntity user, ApplicantEntity applicant){
-        if(userRepository.findByLogin(user.getLogin()).isPresent()){
+        var userInDB = userRepository.findByLogin(user.getLogin());
+        if(userInDB.isPresent()){
+            log.warn("User exist, userId={}", userInDB.get().getId());
             return false;
         }
         applicantRepository.save(applicant);
         ApplicantEntity applicantInDB = applicantRepository.findByLastNameAndNameAndSurname(applicant.getLastName(), applicant.getName(), applicant.getSurname());
         user.setApplicantId(applicantInDB.getId());
         userRepository.save(user);
+        log.info("Save user in DB");
         return true;
     }
 }
