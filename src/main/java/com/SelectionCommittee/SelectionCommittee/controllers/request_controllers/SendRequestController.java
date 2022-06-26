@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.sql.Time;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 @Controller
 @Log4j2
@@ -31,11 +32,13 @@ public class SendRequestController {
 
     private int facultyId;
 
+    private static final String SEND_REQUEST_PAGE = "send_request";
+
     @GetMapping("/send_request")
     public String getSendRequestForm(@RequestParam int facultyId, Model model) {
         log.info("show send request form");
         this.facultyId = facultyId;
-        return "send_request";
+        return SEND_REQUEST_PAGE;
     }
 
     @PostMapping("/send_request")
@@ -53,7 +56,7 @@ public class SendRequestController {
             boolean checkedBlock = checkApplicantBlock(request.getApplicantId(), model);
             boolean checkedUnique = checkRequestUnique(request, model);
             if (checkedBlock || checkedUnique) {
-                return "send_request";
+                return SEND_REQUEST_PAGE;
             } else {
                 requestRepository.save(request);
                 log.info("Save request in DB");
@@ -62,7 +65,7 @@ public class SendRequestController {
             }
         }
         log.warn("Did not passed request validator");
-        return "send_request";
+        return SEND_REQUEST_PAGE;
     }
 
     private void addParamsIntoModel(int mainSubject, int secondSubject, int subSubject, double attestationScore, Model model) {
@@ -77,7 +80,7 @@ public class SendRequestController {
         request.setId(0L);
         request.setStatus("not processed");
         request.setFacultiesId(facultyId);
-        request.setApplicantId(userRepository.findByLogin(username).get().getApplicantId());
+        request.setApplicantId(getApplicantId(username));
         request.setMainSubject(mainSubject);
         request.setSecondSubject(secondSubject);
         request.setSubSubject(subSubject);
@@ -88,8 +91,22 @@ public class SendRequestController {
         return request;
     }
 
+    private Long getApplicantId(String username) {
+        var optional = userRepository.findByLogin(username);
+        if (optional.isEmpty()) {
+            log.error("Applicant not found, Email={}", username);
+            throw new NoSuchElementException("Applicant not found, Email=" + username);
+        }
+        return optional.get().getApplicantId();
+    }
+
     private boolean checkApplicantBlock(Long applicantId, Model model) {
-        ApplicantEntity applicant = applicantRepository.findById(applicantId).get();
+        var optional = applicantRepository.findById(applicantId);
+        if(optional.isEmpty()){
+            log.error("Applicant not found, Id={}", applicantId);
+            throw new NoSuchElementException("Applicant not found, id="+applicantId);
+        }
+        ApplicantEntity applicant = optional.get();
         if (applicant.getBlock() == 1) {
             log.warn("Check applicant block false, applicant id = {}", applicant.getId());
             model.addAttribute("applicant_block", true);
