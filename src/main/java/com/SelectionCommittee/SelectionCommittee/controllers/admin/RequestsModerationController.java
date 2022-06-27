@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Controller
@@ -16,21 +17,26 @@ import java.util.Objects;
 public class RequestsModerationController {
     @Autowired
     protected RequestRepository requestRepository;
+
     @GetMapping("/add_to_realize")
-    public String addToRealize(@RequestParam int facultyId, @RequestParam int requestId, Model model){
+    public String addToRealize(@RequestParam int facultyId, @RequestParam int requestId, Model model) {
         log.info("Add to realize request, faculty id={} , applicant id={}", facultyId, requestId);
-        RequestEntity request = requestRepository.findById(Long.valueOf(requestId)).get();
+        var optional = requestRepository.findById((long) requestId);
+        if (optional.isEmpty()) {
+            log.error("Request not found, Id={}", requestId);
+            throw new NoSuchElementException("Request not found, Id=" + requestId);
+        }
+        RequestEntity request = optional.get();
         setStatus(request);
         requestRepository.save(request);
-        return "redirect:/request?facultyId="+facultyId;
+        return "redirect:/request?facultyId=" + facultyId;
     }
 
     private void setStatus(RequestEntity request) {
         String status = request.getStatus();
-        if(Objects.equals(status, "not processed")){
+        if (Objects.equals(status, "not processed")) {
             request.setStatus("budget");
-        }
-        else{
+        } else {
             request.setStatus("not processed");
         }
     }
