@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
@@ -19,11 +20,13 @@ public class FacultiesModerationController {
     @Autowired
     protected FacultiesRepository facultiesRepository;
 
+    private static final String REDIRECT_FACULTIES = "redirect:/faculties";
+
     @GetMapping("/delete")
     public String deleteFaculty(@RequestParam int facultyId, Model model) {
         log.info("Delete faculty id={}", facultyId);
         facultiesRepository.deleteById((long) facultyId);
-        return "redirect:/faculties";
+        return REDIRECT_FACULTIES;
     }
 
     @GetMapping("/add_faculty")
@@ -40,17 +43,21 @@ public class FacultiesModerationController {
         log.info("Add faculty in DB");
         FacultiesEntity faculties = getFaculties(facultyName, budgetSeats, totalSeats);
         facultiesRepository.save(faculties);
-        return "redirect:/faculties";
+        return REDIRECT_FACULTIES;
     }
 
-    protected FacultiesEntity faculties;
+    protected FacultiesEntity saveFaculties;
 
     @GetMapping("/change_faculty")
     public String getChangeFacultyForm(@RequestParam int facultyId, Model model) {
         log.info("get change faculty form, Id={}", facultyId);
-        Optional<FacultiesEntity> faculty = facultiesRepository.findById(Long.valueOf(facultyId));
-        faculties = faculty.get();
-        model.addAttribute("faculty", faculties);
+        Optional<FacultiesEntity> faculty = facultiesRepository.findById((long) facultyId);
+        if(faculty.isEmpty()){
+            log.error("Faculty not found, Id={}", facultyId);
+            throw new NoSuchElementException("Faculty not found, Id="+facultyId);
+        }
+        saveFaculties = faculty.get();
+        model.addAttribute("faculty", saveFaculties);
         return "admin/change_faculty";
     }
 
@@ -60,11 +67,11 @@ public class FacultiesModerationController {
                                 @RequestParam(name = "total_seats") int totalSeats,
                                 Model model) {
         log.info("Change faculty");
-        faculties.setFacultyName(facultyName);
-        faculties.setBudgetSeats(budgetSeats);
-        faculties.setTotalSeats(totalSeats);
-        facultiesRepository.save(faculties);
-        return "redirect:/faculties";
+        saveFaculties.setFacultyName(facultyName);
+        saveFaculties.setBudgetSeats(budgetSeats);
+        saveFaculties.setTotalSeats(totalSeats);
+        facultiesRepository.save(saveFaculties);
+        return REDIRECT_FACULTIES;
     }
 
     private FacultiesEntity getFaculties(String facultyName, int budgetSeats, int totalSeats) {
