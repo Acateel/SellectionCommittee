@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.NoSuchElementException;
+
 @Controller
 @Log4j2
 public class ApplicantsModerationController {
@@ -38,8 +40,13 @@ public class ApplicantsModerationController {
     }
 
     private void setBlock(int applicantId, boolean block) {
-        ApplicantEntity applicant = applicantRepository.findById(Long.valueOf(applicantId)).get();
-        applicant.setBlock((byte)(block ? 1 : 0));
+        var optional = applicantRepository.findById((long) applicantId);
+        if (optional.isEmpty()) {
+            log.error("Applicant not found, Id={}", applicantId);
+            throw new NoSuchElementException("Applicant not found, Id=" + applicantId);
+        }
+        ApplicantEntity applicant = optional.get();
+        applicant.setBlock((byte) (block ? 1 : 0));
         applicantRepository.save(applicant);
     }
 }
