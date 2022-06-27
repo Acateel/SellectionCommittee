@@ -61,7 +61,7 @@ class FacultiesModerationControllerTest {
 
     @Test
     void changeFaculty() {
-        facultiesModerationController.faculties = new FacultiesEntity();
+        facultiesModerationController.saveFaculties = new FacultiesEntity();
         String template = facultiesModerationController.changeFaculty(
                 "Faculty name",
                 5,
