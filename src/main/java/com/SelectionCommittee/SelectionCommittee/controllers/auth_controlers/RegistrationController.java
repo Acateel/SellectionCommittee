@@ -23,12 +23,16 @@ public class RegistrationController {
     @Autowired
     ApplicantRepository applicantRepository;
 
+    private static final String REGISTER_PAGE = "auth/register";
+    private static final String APPLICANT_ATTRIBUTE_KEY = "applicant";
+    private static final String USER_ATTRIBUTE_KEY = "user";
+
     @GetMapping("/register")
     public String getRegistrationForm(Model model) {
         log.info("Show registration form");
-        model.addAttribute("user", new UserEntity());
-        model.addAttribute("applicant", new ApplicantEntity());
-        return "auth/register";
+        model.addAttribute(USER_ATTRIBUTE_KEY, new UserEntity());
+        model.addAttribute(APPLICANT_ATTRIBUTE_KEY, new ApplicantEntity());
+        return REGISTER_PAGE;
     }
 
     @PostMapping("/register")
@@ -44,11 +48,11 @@ public class RegistrationController {
                                Model model) {
         log.info("Registration");
         UserEntity user = getUserEntity(email, password);
-        model.addAttribute("user", user);
+        model.addAttribute(USER_ATTRIBUTE_KEY, user);
         model.addAttribute("psw_repeat", passwordRepeat);
 
         ApplicantEntity applicant = getApplicantEntity(email, lastname, firstname, surname, city, region, education);
-        model.addAttribute("applicant", applicant);
+        model.addAttribute(APPLICANT_ATTRIBUTE_KEY, applicant);
 
         boolean userChecked = UserValidator.checkUser(user, passwordRepeat, model);
         boolean applicantChecked = ApplicantValidator.checkApplicant(applicant, model);
@@ -56,7 +60,7 @@ public class RegistrationController {
             // add user and applicant to DB
             if(!addToDB(user, applicant)){
                 model.addAttribute("user_exist_error", true);
-                return "auth/register";
+                return REGISTER_PAGE;
             }
             else{
                 model.addAttribute("registration_complete", true);
@@ -66,7 +70,7 @@ public class RegistrationController {
             }
         }
         log.warn("Validator did not pass");
-        return "auth/register";
+        return REGISTER_PAGE;
     }
 
     private ApplicantEntity getApplicantEntity(String email, String lastname, String firstname, String surname, String city, String region, String education) {
@@ -87,7 +91,7 @@ public class RegistrationController {
         user.setId(0L);
         user.setLogin(email);
         user.setPassword(password);
-        user.setRole("applicant");
+        user.setRole(APPLICANT_ATTRIBUTE_KEY);
         return user;
     }
 
