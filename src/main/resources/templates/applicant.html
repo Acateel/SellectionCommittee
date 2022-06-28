@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title th:text="#{user_info}"></title>
+    <th:block th:replace="blocks/bootstrapHead :: bootstrap"></th:block>
+</head>
+<body>
+<div th:replace="blocks/navbar :: navbar"></div>
+<div class="container">
+    <h2 th:text="#{user_info}"/>
+    <br/>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td style="width: 15%" th:text="#{id}"/>
+            <td th:text="${applicant.id}"/>
+        </tr>
+        <tr>
+            <td style="width: 15%" th:text="#{lastname}"/>
+            <td th:text="${applicant.lastName}"/>
+        </tr>
+        <tr>
+            <td style="width: 15%" th:text="#{firstname}"/>
+            <td th:text="${applicant.name}"/>
+        </tr>
+        <tr>
+            <td style="width: 15%" th:text="#{surname}"/>
+            <td th:text="${applicant.surname}"/>
+        </tr>
+        <tr>
+            <td style="width: 15%" th:text="#{email}"/>
+            <td th:text="${applicant.email}"/>
+        </tr>
+        <tr>
+            <td style="width: 15%" th:text="#{city}"/>
+            <td th:text="${applicant.city}"/>
+        </tr>
+        <tr>
+            <td style="width: 15%" th:text="#{region}"/>
+            <td th:text="${applicant.region}"/>
+        </tr>
+        <tr>
+            <td style="width: 15%" th:text="#{education}"/>
+            <td th:text="${applicant.nameEducationalInstitution}"/>
+        </tr>
+        </tbody>
+    </table>
+    <form enctype="multipart/form-data"
+          action="#"
+          method="get">
+        <label for="file" th:text="#{attestation_scan}"/>
+        <br/>
+        <input type="file" name="file" id="file"/>
+        <input class="btn text-primary" type="submit" name="Upload" th:value="#{upload}"/>
+    </form>
+</div>
+</body>
+</html>
