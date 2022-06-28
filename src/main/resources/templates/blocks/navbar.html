@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li class="active" sec:authorize="hasAuthority('applicant')">
-                        <a href="#" th:text="#{applicant}">
+                        <a th:href="@{/applicant}" th:text="#{applicant}">
                         </a>
                     </li>
                     <li class="active" sec:authorize="hasAuthority('admin')">
