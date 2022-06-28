@@ -46,13 +46,19 @@
         </tbody>
     </table>
     <form enctype="multipart/form-data"
-          action="#"
-          method="get">
+          th:action="@{/applicant}"
+          method="post">
         <label for="file" th:text="#{attestation_scan}"/>
         <br/>
         <input type="file" name="file" id="file"/>
         <input class="btn text-primary" type="submit" name="Upload" th:value="#{upload}"/>
     </form>
+    <div class="text-success" th:if="${file_upload}">
+        <h3 th:text="#{scan_upload}"/>
+    </div>
+    <div class="text-danger" th:if="${file_not_upload}">
+        <h3 th:text="#{scan_not_upload}"/>
+    </div>
 </div>
 </body>
 </html>
