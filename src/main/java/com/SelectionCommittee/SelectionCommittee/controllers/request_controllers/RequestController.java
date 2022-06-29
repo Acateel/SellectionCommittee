@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Request controller - show request by faculty with pages
+ */
 @Controller
 @Log4j2
 public class RequestController {

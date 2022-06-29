@@ -19,6 +19,9 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.NoSuchElementException;
 
+/**
+ * Send request controller - show send request page, get information by form and after validation add request to DB
+ */
 @Controller
 @Log4j2
 public class SendRequestController {
