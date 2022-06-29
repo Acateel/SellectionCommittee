@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Admin menu controller - show admin menu with admin function
+ */
 @Controller
 @Log4j2
 public class AdminMenuController {

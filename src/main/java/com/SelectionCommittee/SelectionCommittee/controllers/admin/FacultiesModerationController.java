@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+/**
+ * Faculties moderation controller - get CRUD operation for faculties
+ */
 @Controller
 @Log4j2
 public class FacultiesModerationController {

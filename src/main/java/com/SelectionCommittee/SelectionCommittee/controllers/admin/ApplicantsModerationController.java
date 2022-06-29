@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.NoSuchElementException;
 
+/**
+ *  Applicants moderation controller - show applicants and set block for applicant
+ */
 @Controller
 @Log4j2
 public class ApplicantsModerationController {

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+/**
+ * Request moderation controller - added request into finalize (set request status)
+ */
 @Controller
 @Log4j2
 public class RequestsModerationController {

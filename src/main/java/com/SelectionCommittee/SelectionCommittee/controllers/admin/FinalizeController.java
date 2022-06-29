@@ -7,6 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Finalize controller - finalizes requests (determines the rating score and status)
+ */
+
 @Controller
 @Log4j2
 public class FinalizeController {
