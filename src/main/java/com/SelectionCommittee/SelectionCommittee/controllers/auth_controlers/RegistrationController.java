@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Registration controller - show registration form, get login information and after validation added to DB
+ */
 @Controller
 @Log4j2
 public class RegistrationController {
