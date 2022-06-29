@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Faculties controller - show faculties by order
+ */
 @Controller
 @Log4j2
 public class FacultiesController {

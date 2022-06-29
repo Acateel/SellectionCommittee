@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.NoSuchElementException;
 
+/**
+ * Applicant Controller - show applicant information and upload attestation scan
+ */
 @Controller
 @Log4j2
 public class ApplicantController {
