@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ApplicantRepository extends CrudRepository<ApplicantEntity, Long> {
     ApplicantEntity findByLastNameAndNameAndSurname(String lastname, String name, String surname);
+
+    int countAllBy();
 }
