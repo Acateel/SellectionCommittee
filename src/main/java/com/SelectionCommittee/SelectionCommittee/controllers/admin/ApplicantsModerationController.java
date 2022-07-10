@@ -19,10 +19,14 @@ import java.util.NoSuchElementException;
 public class ApplicantsModerationController {
     @Autowired
     protected ApplicantRepository applicantRepository;
+    private static final int PAGE_SIZE = 10;
 
     @GetMapping("/applicants")
-    public String getApplicants(Model model) {
+    public String getApplicants(@RequestParam(required = false, defaultValue = "0") int page ,Model model) {
         log.info("Show applicants");
+        page = getPage(page);
+        model.addAttribute("page", page);
+
         var applicants = applicantRepository.findAll();
         model.addAttribute("applicants", applicants);
         return "admin/applicants";
@@ -51,5 +55,18 @@ public class ApplicantsModerationController {
         ApplicantEntity applicant = optional.get();
         applicant.setBlock((byte) (block ? 1 : 0));
         applicantRepository.save(applicant);
+    }
+
+    private int getPage(int page) {
+        if (page < 0) {
+            page = 0;
+        } else {
+            int counts = applicantRepository.countAllBy();
+            int showedCounts = page * PAGE_SIZE;
+            if (showedCounts > counts) {
+                page--;
+            }
+        }
+        return page;
     }
 }
