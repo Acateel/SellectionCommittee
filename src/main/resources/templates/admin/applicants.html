@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{applicants}"></title>
-    <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
+    <th:block th:replace="blocks/bootstrapHead :: bootstrap"></th:block>
 </head>
 <body>
 <div th:replace="blocks/navbar :: navbar"></div>
@@ -36,6 +36,22 @@
             </tr>
         </tbody>
     </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{/applicants(page=${page}-1)}"
+                   th:text="#{previous}">
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{/applicants(page=${page}+1)}"
+                   th:text="#{next}">
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 </body>
 </html>
