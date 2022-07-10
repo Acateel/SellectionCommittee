@@ -4,6 +4,7 @@ import com.SelectionCommittee.SelectionCommittee.models.ApplicantEntity;
 import com.SelectionCommittee.SelectionCommittee.repositories.ApplicantRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class ApplicantsModerationController {
         page = getPage(page);
         model.addAttribute("page", page);
 
-        var applicants = applicantRepository.findAll();
+        var applicants = applicantRepository.findAll(PageRequest.of(page, PAGE_SIZE));
         model.addAttribute("applicants", applicants);
         return "admin/applicants";
     }
