@@ -33,7 +33,7 @@ class ApplicantsModerationControllerTest {
 
     @Test
     void getApplicants() {
-        String template = applicantsModerationController.getApplicants(model);
+        String template = applicantsModerationController.getApplicants(0,model);
         assertEquals("admin/applicants", template);
     }
 
