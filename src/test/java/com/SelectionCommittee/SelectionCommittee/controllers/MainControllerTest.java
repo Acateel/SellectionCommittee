@@ -3,20 +3,23 @@ package com.SelectionCommittee.SelectionCommittee.controllers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.ui.Model;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Main Controller Test - testing MainController
+ */
 @SpringBootTest
 class MainControllerTest {
     @Autowired
     MainController controller;
 
+    /**
+     * Testing return template's name of main page
+     */
     @Test
     void main() {
-        Model modelMock = mock(Model.class);
-        String model = controller.main(modelMock);
+        String model = controller.main();
         assertEquals("main", model);
     }
 }
