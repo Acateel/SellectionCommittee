@@ -30,14 +30,14 @@ class FacultiesModerationControllerTest {
 
     @Test
     void deleteFaculty() {
-        String template = facultiesModerationController.deleteFaculty(1, model);
+        String template = facultiesModerationController.deleteFaculty(1);
         verify(facultiesRepository).deleteById(1L);
         assertEquals("redirect:/faculties", template);
     }
 
     @Test
     void getAddFacultyForm() {
-        String template = facultiesModerationController.getAddFacultyForm(model);
+        String template = facultiesModerationController.getAddFacultyForm();
         assertEquals("admin/add_faculty", template);
     }
 
@@ -46,8 +46,7 @@ class FacultiesModerationControllerTest {
         String template = facultiesModerationController.addFaculty(
                 "Faculty name",
                 5,
-                10,
-                model
+                10
         );
         verify(facultiesRepository).save(any());
         assertEquals("redirect:/faculties", template);
@@ -65,8 +64,7 @@ class FacultiesModerationControllerTest {
         String template = facultiesModerationController.changeFaculty(
                 "Faculty name",
                 5,
-                10,
-                model
+                10
         );
         verify(facultiesRepository).save(any());
         assertEquals("redirect:/faculties", template);

@@ -26,14 +26,14 @@ public class FacultiesModerationController {
     private static final String REDIRECT_FACULTIES = "redirect:/faculties";
 
     @GetMapping("/delete")
-    public String deleteFaculty(@RequestParam int facultyId, Model model) {
+    public String deleteFaculty(@RequestParam int facultyId) {
         log.info("Delete faculty id={}", facultyId);
         facultiesRepository.deleteById((long) facultyId);
         return REDIRECT_FACULTIES;
     }
 
     @GetMapping("/add_faculty")
-    public String getAddFacultyForm(Model model) {
+    public String getAddFacultyForm() {
         log.info("get add faculty form");
         return "admin/add_faculty";
     }
@@ -41,8 +41,7 @@ public class FacultiesModerationController {
     @PostMapping("/add_faculty")
     public String addFaculty(@RequestParam(name = "faculty_name") String facultyName,
                              @RequestParam(name = "budget_seats") int budgetSeats,
-                             @RequestParam(name = "total_seats") int totalSeats,
-                             Model model) {
+                             @RequestParam(name = "total_seats") int totalSeats) {
         log.info("Add faculty in DB");
         FacultiesEntity faculties = getFaculties(facultyName, budgetSeats, totalSeats);
         facultiesRepository.save(faculties);
@@ -67,8 +66,7 @@ public class FacultiesModerationController {
     @PostMapping("/change_faculty")
     public String changeFaculty(@RequestParam(name = "faculty_name") String facultyName,
                                 @RequestParam(name = "budget_seats") int budgetSeats,
-                                @RequestParam(name = "total_seats") int totalSeats,
-                                Model model) {
+                                @RequestParam(name = "total_seats") int totalSeats) {
         log.info("Change faculty");
         saveFaculties.setFacultyName(facultyName);
         saveFaculties.setBudgetSeats(budgetSeats);
