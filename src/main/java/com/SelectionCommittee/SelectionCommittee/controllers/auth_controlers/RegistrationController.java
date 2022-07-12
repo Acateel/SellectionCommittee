@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Registration controller - show registration form, get login information and after validation added to DB
+ * Registration controller - displaying registration form, get login information and after validation added to DB
  */
 @Controller
 @Log4j2
@@ -34,6 +34,12 @@ public class RegistrationController {
     private static final String APPLICANT_ATTRIBUTE_KEY = "applicant";
     private static final String USER_ATTRIBUTE_KEY = "user";
 
+    /**
+     * Show register form page
+     *
+     * @param model for add attributes empty entity
+     * @return model name of register page
+     */
     @GetMapping("/register")
     public String getRegistrationForm(Model model) {
         log.info("Show registration form");
@@ -42,6 +48,21 @@ public class RegistrationController {
         return REGISTER_PAGE;
     }
 
+    /**
+     * Create applicant and user entity and add into DB
+     *
+     * @param email          user login and applicant email
+     * @param password       from parameter
+     * @param passwordRepeat from parameter
+     * @param lastname       applicant lastname
+     * @param firstname      applicant firstname
+     * @param surname        applicant surname
+     * @param city           applicant city
+     * @param region         applicant region
+     * @param education      applicant name educational institution
+     * @param model          for add attributes
+     * @return login page if registration access or back to registration page is did not
+     */
     @PostMapping("/register")
     public String registration(@RequestParam(name = "email") String email,
                                @RequestParam(name = "psw") String password,
@@ -78,6 +99,18 @@ public class RegistrationController {
         return REGISTER_PAGE;
     }
 
+    /**
+     * create applicant entity by parameters
+     *
+     * @param email     applicant email
+     * @param lastname  applicant lastname
+     * @param firstname applicant firstname
+     * @param surname   applicant surname
+     * @param city      applicant city
+     * @param region    applicant region
+     * @param education applicant name educational institution
+     * @return applicant entity
+     */
     private ApplicantEntity getApplicantEntity(String email, String lastname, String firstname, String surname, String city, String region, String education) {
         ApplicantEntity applicant = new ApplicantEntity();
         applicant.setId(0L);
@@ -91,6 +124,13 @@ public class RegistrationController {
         return applicant;
     }
 
+    /**
+     * Create user entity
+     *
+     * @param email    user login
+     * @param password user password without encrypt
+     * @return user entity
+     */
     private UserEntity getUserEntity(String email, String password) {
         UserEntity user = new UserEntity();
         user.setId(0L);
@@ -100,6 +140,13 @@ public class RegistrationController {
         return user;
     }
 
+    /**
+     * Add user and applicant entities into DB
+     *
+     * @param user      user entity
+     * @param applicant user entity
+     * @return true if entities added into DB or false if did not
+     */
     private boolean addToDB(UserEntity user, ApplicantEntity applicant) {
         var userInDB = userRepository.findByLogin(user.getLogin());
         if (userInDB.isPresent()) {
