@@ -25,6 +25,12 @@ public class FacultiesModerationController {
 
     private static final String REDIRECT_FACULTIES = "redirect:/faculties";
 
+    /**
+     * Delete faculty from DB
+     *
+     * @param facultyId faculty id
+     * @return redirect faculties table page
+     */
     @GetMapping("/delete")
     public String deleteFaculty(@RequestParam int facultyId) {
         log.info("Delete faculty id={}", facultyId);
@@ -32,12 +38,25 @@ public class FacultiesModerationController {
         return REDIRECT_FACULTIES;
     }
 
+    /**
+     * show add faculty form page
+     *
+     * @return model name add faculty page
+     */
     @GetMapping("/add_faculty")
     public String getAddFacultyForm() {
         log.info("get add faculty form");
         return "admin/add_faculty";
     }
 
+    /**
+     * Add faculty into DB
+     *
+     * @param facultyName faculty name
+     * @param budgetSeats budget seats count
+     * @param totalSeats  total seats count
+     * @return redirect faculties table page
+     */
     @PostMapping("/add_faculty")
     public String addFaculty(@RequestParam(name = "faculty_name") String facultyName,
                              @RequestParam(name = "budget_seats") int budgetSeats,
@@ -50,19 +69,35 @@ public class FacultiesModerationController {
 
     protected FacultiesEntity saveFaculties;
 
+    /**
+     * Show change faculty form page
+     *
+     * @param facultyId faculty id
+     * @param model     for add attributes
+     * @return model name change faculty page
+     * @throws NoSuchElementException if faculty not found
+     */
     @GetMapping("/change_faculty")
     public String getChangeFacultyForm(@RequestParam int facultyId, Model model) {
         log.info("get change faculty form, Id={}", facultyId);
         Optional<FacultiesEntity> faculty = facultiesRepository.findById((long) facultyId);
-        if(faculty.isEmpty()){
+        if (faculty.isEmpty()) {
             log.error("Faculty not found, Id={}", facultyId);
-            throw new NoSuchElementException("Faculty not found, Id="+facultyId);
+            throw new NoSuchElementException("Faculty not found, Id=" + facultyId);
         }
         saveFaculties = faculty.get();
         model.addAttribute("faculty", saveFaculties);
         return "admin/change_faculty";
     }
 
+    /**
+     * Change faculty
+     *
+     * @param facultyName faculty name
+     * @param budgetSeats budget seats count
+     * @param totalSeats  total seats count
+     * @return redirect faculties table page
+     */
     @PostMapping("/change_faculty")
     public String changeFaculty(@RequestParam(name = "faculty_name") String facultyName,
                                 @RequestParam(name = "budget_seats") int budgetSeats,
@@ -75,6 +110,14 @@ public class FacultiesModerationController {
         return REDIRECT_FACULTIES;
     }
 
+    /**
+     * Create faculty entity
+     *
+     * @param facultyName faculty name
+     * @param budgetSeats budget seats count
+     * @param totalSeats  total seats count
+     * @return faculty entity
+     */
     private FacultiesEntity getFaculties(String facultyName, int budgetSeats, int totalSeats) {
         FacultiesEntity faculties = new FacultiesEntity();
         faculties.setFacultyName(facultyName);
