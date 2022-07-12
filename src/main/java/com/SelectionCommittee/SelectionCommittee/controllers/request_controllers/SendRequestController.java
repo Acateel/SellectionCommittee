@@ -37,6 +37,12 @@ public class SendRequestController {
 
     private static final String SEND_REQUEST_PAGE = "send_request";
 
+    /**
+     * show send request page
+     *
+     * @param facultyId save faculty id for send request
+     * @return model name of send request page
+     */
     @GetMapping("/send_request")
     public String getSendRequestForm(@RequestParam int facultyId) {
         log.info("show send request form");
@@ -44,6 +50,17 @@ public class SendRequestController {
         return SEND_REQUEST_PAGE;
     }
 
+    /**
+     * Send request into DB after validation
+     *
+     * @param mainSubject      parameter from form
+     * @param secondSubject    parameter from form
+     * @param subSubject       parameter from form
+     * @param attestationScore parameter from form
+     * @param model            for add attributes
+     * @param principal        for get user
+     * @return beck to main page if request added or back to send request page if request did not add
+     */
     @PostMapping("/send_request")
     public String sendRequestIntoDb(@RequestParam(name = "main_subject") int mainSubject,
                                     @RequestParam(name = "second_subject") int secondSubject,
@@ -71,6 +88,15 @@ public class SendRequestController {
         return SEND_REQUEST_PAGE;
     }
 
+    /**
+     * Add scores for attribute into model
+     *
+     * @param mainSubject      main subject score
+     * @param secondSubject    second subject score
+     * @param subSubject       sub subject score
+     * @param attestationScore attestation score
+     * @param model            for add attributes
+     */
     private void addParamsIntoModel(int mainSubject, int secondSubject, int subSubject, double attestationScore, Model model) {
         model.addAttribute("main_subject", mainSubject);
         model.addAttribute("second_subject", secondSubject);
@@ -78,6 +104,16 @@ public class SendRequestController {
         model.addAttribute("average_attestation_score", attestationScore);
     }
 
+    /**
+     * Create Request entity by parameters
+     *
+     * @param mainSubject      main subject score
+     * @param secondSubject    second subject score
+     * @param subSubject       sub subject score
+     * @param attestationScore attestation score
+     * @param username         username from security
+     * @return request entity
+     */
     private RequestEntity getRequest(int mainSubject, int secondSubject, int subSubject, double attestationScore, String username) {
         RequestEntity request = new RequestEntity();
         request.setId(0L);
@@ -94,6 +130,13 @@ public class SendRequestController {
         return request;
     }
 
+    /**
+     * Get applicant id by username from user table from DB
+     *
+     * @param username user login
+     * @return applicant id
+     * @throws NoSuchElementException if applicant not found
+     */
     private Long getApplicantId(String username) {
         var optional = userRepository.findByLogin(username);
         if (optional.isEmpty()) {
@@ -103,11 +146,19 @@ public class SendRequestController {
         return optional.get().getApplicantId();
     }
 
+    /**
+     * Check applicant block (set for admin)
+     *
+     * @param applicantId applicant identification
+     * @param model       for add attributes
+     * @return true if block has of false if block has not
+     * @throws NoSuchElementException if applicant not found
+     */
     private boolean checkApplicantBlock(Long applicantId, Model model) {
         var optional = applicantRepository.findById(applicantId);
-        if(optional.isEmpty()){
+        if (optional.isEmpty()) {
             log.error("Applicant not found, Id={}", applicantId);
-            throw new NoSuchElementException("Applicant not found, id="+applicantId);
+            throw new NoSuchElementException("Applicant not found, id=" + applicantId);
         }
         ApplicantEntity applicant = optional.get();
         if (applicant.getBlock() == 1) {
@@ -118,6 +169,13 @@ public class SendRequestController {
         return false;
     }
 
+    /**
+     * Check request unique
+     *
+     * @param request created request entity
+     * @param model   for add attribute
+     * @return true if request exist or false if not
+     */
     private boolean checkRequestUnique(RequestEntity request, Model model) {
         RequestEntity requestInDB = requestRepository.findByFacultiesIdAndApplicantId(request.getFacultiesId(), request.getApplicantId());
         if (requestInDB != null) {
