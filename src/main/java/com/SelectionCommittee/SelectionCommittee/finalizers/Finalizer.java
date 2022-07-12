@@ -10,6 +10,9 @@ import com.SelectionCommittee.SelectionCommittee.repositories.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Finalizer - abstract request finalizer
+ */
 @Service
 public abstract class Finalizer {
     @Autowired
@@ -19,6 +22,9 @@ public abstract class Finalizer {
     RatingScoreMathable ratingScoreMath;
     PassingScoreMathable passingScoreMath;
 
+    /**
+     * Set default ratting and passing score
+     */
     protected Finalizer() {
         ratingScoreMath = new BasicRattingScoreMath();
         passingScoreMath = new BasicPassingScoreMath();
@@ -26,10 +32,20 @@ public abstract class Finalizer {
 
     public abstract void finalizeRequests();
 
+    /**
+     * set ratting score class
+     *
+     * @param ratingScoreMath implementation of RatingScoreMathable
+     */
     public void setRatingScoreMath(RatingScoreMathable ratingScoreMath) {
         this.ratingScoreMath = ratingScoreMath;
     }
 
+    /**
+     * set passing score class
+     *
+     * @param passingScoreMath implementation of PassingScoreMathable
+     */
     public void setPassingScoreMath(PassingScoreMathable passingScoreMath) {
         this.passingScoreMath = passingScoreMath;
     }
