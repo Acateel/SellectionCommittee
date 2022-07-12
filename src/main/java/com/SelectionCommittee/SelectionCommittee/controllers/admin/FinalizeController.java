@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Finalize controller - finalizes requests (determines the rating score and status)
+ * Finalize controller - finalizes requests
  */
 
 @Controller
@@ -18,8 +18,14 @@ public class FinalizeController {
     @Autowired
     protected Finalizer finalizer;
 
+    /**
+     * Finalize requests
+     *
+     * @param model for add attribute
+     * @return model name of main page
+     */
     @GetMapping("/finalize")
-    public String finalizeRequests(Model model){
+    public String finalizeRequests(Model model) {
         log.info("finalize requests");
         finalizer.finalizeRequests();
         model.addAttribute("finalize_complete", true);
