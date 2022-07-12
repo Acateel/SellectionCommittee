@@ -45,7 +45,7 @@ public class ApplicantsModerationController {
      * @return redirect for applicant table page
      */
     @GetMapping("/block_applicant")
-    public String blockApplicant(@RequestParam int applicantId, Model model) {
+    public String blockApplicant(@RequestParam int applicantId) {
         log.info("Block applicant, id={}", applicantId);
         setBlock(applicantId, true);
         return "redirect:/applicants";
@@ -57,7 +57,7 @@ public class ApplicantsModerationController {
      * @return redirect for applicant table page
      */
     @GetMapping("/deblock_applicant")
-    public String deblockApplicant(@RequestParam int applicantId, Model model) {
+    public String deblockApplicant(@RequestParam int applicantId) {
         log.info("Reset block applicant, id={}", applicantId);
         setBlock(applicantId, false);
         return "redirect:/applicants";

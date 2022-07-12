@@ -39,14 +39,14 @@ class ApplicantsModerationControllerTest {
 
     @Test
     void blockApplicant() {
-        String template = applicantsModerationController.blockApplicant(1, model);
+        String template = applicantsModerationController.blockApplicant(1);
         verify(applicantRepository).save(any());
         assertEquals("redirect:/applicants", template);
     }
 
     @Test
     void deblockApplicant() {
-        String template = applicantsModerationController.deblockApplicant(1, model);
+        String template = applicantsModerationController.deblockApplicant(1);
         verify(applicantRepository).save(any());
         assertEquals("redirect:/applicants", template);
     }
