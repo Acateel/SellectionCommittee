@@ -8,49 +8,49 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    protected UserDetailsService userDetailsService;
+    protected UserDetailsService myUserDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(getPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/faculties", "/request", "/register").permitAll()
-                    .antMatchers("/send_request", "/applicant").hasAuthority("applicant")
-                    .antMatchers(
-                            "/admin_menu",
-                            "/delete",
-                            "/finalize",
-                            "/add_faculty",
-                            "/change_faculty",
-                            "/add_to_realize",
-                            "/block_applicant",
-                            "/deblock_applicant",
-                            "/applicants").hasAuthority("admin")
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/", "/faculties", "/request", "/register").permitAll()
+                .antMatchers("/send_request", "/applicant").hasAuthority("applicant")
+                .antMatchers(
+                        "/admin_menu",
+                        "/delete",
+                        "/finalize",
+                        "/add_faculty",
+                        "/change_faculty",
+                        "/add_to_realize",
+                        "/block_applicant",
+                        "/deblock_applicant",
+                        "/applicants").hasAuthority("admin")
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .permitAll()
+                .and()
                 .logout()
-                    .logoutSuccessUrl("/")
-                    .permitAll();
+                .logoutSuccessUrl("/")
+                .permitAll();
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }
