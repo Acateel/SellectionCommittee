@@ -4,14 +4,13 @@ import com.SelectionCommittee.SelectionCommittee.models.RequestEntity;
 import com.SelectionCommittee.SelectionCommittee.repositories.RequestRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.ui.Model;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -34,7 +33,7 @@ class RequestsModerationControllerTest {
     @Test
     void addToRealize_not_processed() {
         request.setStatus("not processed");
-        String template = requestsModerationController.addToRealize(1,1, model);
+        String template = requestsModerationController.addToRealize(1, 1);
         assertEquals("budget", request.getStatus());
         verify(requestRepository).save(request);
         assertEquals("redirect:/request?facultyId=1", template);
@@ -43,7 +42,7 @@ class RequestsModerationControllerTest {
     @Test
     void addToRealize_budget() {
         request.setStatus("budget");
-        String template = requestsModerationController.addToRealize(1,1, model);
+        String template = requestsModerationController.addToRealize(1, 1);
         assertEquals("not processed", request.getStatus());
         verify(requestRepository).save(request);
         assertEquals("redirect:/request?facultyId=1", template);

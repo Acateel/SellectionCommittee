@@ -5,7 +5,6 @@ import com.SelectionCommittee.SelectionCommittee.repositories.RequestRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,7 +21,7 @@ public class RequestsModerationController {
     protected RequestRepository requestRepository;
 
     @GetMapping("/add_to_realize")
-    public String addToRealize(@RequestParam int facultyId, @RequestParam int requestId, Model model) {
+    public String addToRealize(@RequestParam int facultyId, @RequestParam int requestId) {
         log.info("Add to realize request, faculty id={} , applicant id={}", facultyId, requestId);
         var optional = requestRepository.findById((long) requestId);
         if (optional.isEmpty()) {
