@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.NoSuchElementException;
 
 /**
- *  Applicants moderation controller - show applicants and set block for applicant
+ *  Applicants moderation controller is responsible for displaying applicants page and set block for applicant
  */
 @Controller
 @Log4j2
@@ -22,6 +22,12 @@ public class ApplicantsModerationController {
     protected ApplicantRepository applicantRepository;
     private static final int PAGE_SIZE = 10;
 
+    /**
+     * Show applicants table with pagination
+     * @param page page for pagination
+     * @param model for add attributes
+     * @return model name of applicants table
+     */
     @GetMapping("/applicants")
     public String getApplicants(@RequestParam(required = false, defaultValue = "0") int page ,Model model) {
         log.info("Show applicants");
@@ -33,6 +39,11 @@ public class ApplicantsModerationController {
         return "admin/applicants";
     }
 
+    /**
+     * Block applicant
+     * @param applicantId applicant id
+     * @return redirect for applicant table page
+     */
     @GetMapping("/block_applicant")
     public String blockApplicant(@RequestParam int applicantId, Model model) {
         log.info("Block applicant, id={}", applicantId);
@@ -40,6 +51,11 @@ public class ApplicantsModerationController {
         return "redirect:/applicants";
     }
 
+    /**
+     * remove applicant block
+     * @param applicantId applicant id
+     * @return redirect for applicant table page
+     */
     @GetMapping("/deblock_applicant")
     public String deblockApplicant(@RequestParam int applicantId, Model model) {
         log.info("Reset block applicant, id={}", applicantId);
@@ -47,6 +63,11 @@ public class ApplicantsModerationController {
         return "redirect:/applicants";
     }
 
+    /**
+     * Set block of applicant
+     * @param applicantId applicant id
+     * @param block block value
+     */
     private void setBlock(int applicantId, boolean block) {
         var optional = applicantRepository.findById((long) applicantId);
         if (optional.isEmpty()) {
@@ -58,6 +79,11 @@ public class ApplicantsModerationController {
         applicantRepository.save(applicant);
     }
 
+    /**
+     * set page when ist less zero of more than showed counts pages
+     * @param page page from url parameter
+     * @return current page
+     */
     private int getPage(int page) {
         if (page < 0) {
             page = 0;
