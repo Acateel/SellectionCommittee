@@ -8,15 +8,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * MyUserDerails implementation UserDetails for MyUserDetailsService
+ */
 public class MyUserDetails implements UserDetails {
 
-    protected UserEntity user;
+    protected transient UserEntity user;
 
     public MyUserDetails(UserEntity user) {
         this.user = user;
-    }
-
-    public MyUserDetails() {
     }
 
     @Override
