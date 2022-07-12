@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Faculties controller - show faculties by order
+ * Faculties controller is responsible for displaying the faculties page
  */
 @Controller
 @Log4j2
@@ -20,6 +20,12 @@ public class FacultiesController {
     protected static final String FACULTY_PAGE = "faculties";
     protected static final String FACULTIES_ATTRIBUTE_NAME = "faculties";
 
+    /**
+     * take faculties by order from DB and show faculties
+     * @param order order for GetFacultiesByOrder
+     * @param model for add faculties attribute for template
+     * @return name of faculties table page template for thymeleaf
+     */
     @GetMapping("/faculties")
     public String showFacultiesByOrder(@RequestParam(required = false, defaultValue = "byId") String order, Model model){
         log.info("Show faculties");
@@ -28,6 +34,11 @@ public class FacultiesController {
         return FACULTY_PAGE;
     }
 
+    /**
+     * Get faculties list from DB by order
+     * @param order the order in which we will choose the ordering method
+     * @return faculties list
+     */
     private Iterable<FacultiesEntity> getFacultiesByOrder(String order) {
         log.info("Select order : {}", order);
         return switch (order) {

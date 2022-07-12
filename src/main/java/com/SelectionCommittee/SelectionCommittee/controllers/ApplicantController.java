@@ -17,7 +17,7 @@ import java.security.Principal;
 import java.util.NoSuchElementException;
 
 /**
- * Applicant Controller - show applicant information and upload attestation scan
+ * Applicant Controller - is responsible for displaying the applicant info page and upload attestation scan file
  */
 @Controller
 @Log4j2
@@ -29,6 +29,12 @@ public class ApplicantController {
 
     private static final String APPLICANT_KEY = "applicant";
 
+    /**
+     * Show applicant information
+     * @param model for add applicant attribute
+     * @param principal for get applicant id from user entity
+     * @return model name of applicant info page
+     */
     @GetMapping("/applicant")
     public String getUserInfo(Model model, Principal principal) {
         log.info("Show applicant info");
@@ -38,6 +44,13 @@ public class ApplicantController {
         return APPLICANT_KEY;
     }
 
+    /**
+     * Upload attestation scan file and show file not upload if error happened
+     * @param file attestation scan
+     * @param model for add attributes
+     * @param principal for get user for get applicant id
+     * @return model name of applicant info page
+     */
     @PostMapping("/applicant")
     public String uploadAttestation(@RequestParam("file") MultipartFile file, Model model, Principal principal) {
         long applicantId = getApplicantId(principal.getName());
@@ -54,6 +67,11 @@ public class ApplicantController {
         return APPLICANT_KEY;
     }
 
+    /**
+     * Get Applicant by applicant id
+     * @param applicantId applicant id from user
+     * @return applicant entity from DB
+     */
     private ApplicantEntity getApplicant(long applicantId) {
         var applicant = applicantRepository.findById(applicantId);
         if (applicant.isEmpty()) {
@@ -63,6 +81,11 @@ public class ApplicantController {
         return applicant.get();
     }
 
+    /**
+     * Get applicant id from user by username or error if applicant not found
+     * @param login username
+     * @return applicant with applicant
+     */
     private long getApplicantId(String login) {
         var user = userRepository.findByLogin(login);
         if (user.isEmpty()) {
