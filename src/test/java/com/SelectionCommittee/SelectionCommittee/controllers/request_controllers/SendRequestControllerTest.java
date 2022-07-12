@@ -54,13 +54,13 @@ class SendRequestControllerTest {
 
     @Test
     void getSendRequestForm() {
-        String templates = sendRequestController.getSendRequestForm(1, model);
+        String templates = sendRequestController.getSendRequestForm(1);
         assertEquals("send_request", templates);
     }
 
     @Test
     void sendRequestIntoDb() {
-        sendRequestController.getSendRequestForm(1, model);
+        sendRequestController.getSendRequestForm(1);
         String templates = sendRequestController.sendRequestIntoDb(
                 180,
                 180,
