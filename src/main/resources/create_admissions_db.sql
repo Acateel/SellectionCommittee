@@ -79,13 +79,13 @@ INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES ('Фа�
 INSERT INTO `Faculties` (faculty_name, budget_seats, total_seats) VALUES ('Факультет філології', '1', '2');
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('admin', 'admin', 'admin', 0);
+VALUES ('admin', '$2a$10$/3ZfLe8KqY0t0mTk0cQEUO4G4izvv2uHDt8s3Jm1Nzd0uMX959W9W', 'admin', 0);
 
 INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_educational_institution, attestation, `block`) 
 VALUES ('Козодой', 'Тарас', 'Романович', 'akateely@gmail.com', 'Володимирець', 'Рівне', 'Школа #1', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('akateely@gmail.com', '12345678', 'applicant', 1);
+VALUES ('akateely@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 1);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 1, 195, 196, 179, 0, 10.8, now());
@@ -96,7 +96,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Osmolovich', 'Andriy', 'Victorovich', 'osmolovich@gmail.com', 'Kiyv', 'Kiyv', 'College #22', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('osmolovich@gmail.com', '12345678', 'applicant', 2);
+VALUES ('osmolovich@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 2);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 2, 188, 196, 179, 0, 9.6, now());
@@ -109,7 +109,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Добрін', 'Сергій', 'Вікторович', 'dobrin@gmail.com', 'Київ', 'Київський', 'Колегіум №2', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('dobrin@gmail.com', '12345678', 'applicant', 3);
+VALUES ('dobrin@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 3);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 3, 150, 149, 135, 0, 7.2, now());
@@ -124,7 +124,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Любомир', 'Валентина', 'Вікторівна', 'lubomur@gmail.com', 'Київ', 'Київський', 'Колегіум №2', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('lubomur@gmail.com', '12345678', 'applicant', 4);
+VALUES ('lubomur@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 4);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 2, 4, 188, 172, 190, 0, 11.6, now());
@@ -135,7 +135,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Волошин', 'Кіріл', 'Максимович', 'voloshin@gmail.com', 'Київ', 'Київський', 'Школа №23', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('voloshin@gmail.com', '12345678', 'applicant', 5);
+VALUES ('voloshin@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 5);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 5, 196, 149, 192, 0, 11.2, now());
@@ -149,7 +149,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Поліян', 'Артур', 'Сергійович', 'poliyan@gmail.com', 'Київ', 'Київський', 'Школа №23', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('poliyan@gmail.com', '12345678', 'applicant', 6);
+VALUES ('poliyan@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 6);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 6, 153, 195, 165, 0, 10.1, now());
@@ -163,7 +163,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Дворніченко', 'Данііл', 'Вадимович', 'dvornichenko@gmail.com', 'Львів', 'Львівська', 'Школа №13', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('dvornichenko@gmail.com', '12345678', 'applicant', 7);
+VALUES ('dvornichenko@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 7);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 7, 192, 124, 145, 0, 9.1, now());
@@ -177,7 +177,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Прядко', 'Андрій', 'Володимирович', 'pryadko@gmail.com', 'Одеса', 'Одеська', 'Колегіум №2', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('pryadko@gmail.com', '12345678', 'applicant', 8);
+VALUES ('pryadko@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 8);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 8, 189, 172, 160, 0, 9.9, now());
@@ -191,7 +191,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Похил', 'Марія', 'Борисівна', 'pohil20@gmail.com', 'Бориспіль', 'Київська', 'Школа №3', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('pohil20@gmail.com', '12345678', 'applicant', 9);
+VALUES ('pohil20@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 9);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 9, 199, 144, 139, 0, 8.3, now());
@@ -205,7 +205,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Дмитренок', 'Богдан', 'Валентинович', 'dmitrenok@gmail.com', 'Бориспіль', 'Київська', 'Школа №3', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('dmitrenok@gmail.com', '12345678', 'applicant', 10);
+VALUES ('dmitrenok@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 10);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 10, 121, 153, 168, 0, 7.1, now());
@@ -219,7 +219,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Коломієць', 'Ігор', 'Юрійович', 'kolomiech@gmail.com', 'Сарни', 'Рівненьська', 'Школа №1', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('kolomiech@gmail.com', '12345678', 'applicant', 11);
+VALUES ('kolomiech@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 11);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 11, 126, 173, 170, 0, 9.1, now());
@@ -233,7 +233,7 @@ INSERT INTO applicant (last_name, `name`, surname, email, city, region, name_edu
 VALUES ('Саврак', 'Богдан', 'Михайлович', 'savrac22@gmail.com', 'Київ', 'Київська', 'Школа №15', null, false);
 
 INSERT INTO `user` (login, password, role, applicant_id) 
-VALUES ('savrac22@gmail.com', '12345678', 'applicant', 12);
+VALUES ('savrac22@gmail.com', '$2a$10$uluSVhuJqKwdUletH4TGPe2I81MY0eS0fXNzDN7dkYt2KBT5H4ORm', 'applicant', 12);
 
 INSERT INTO request (`status`, faculties_id, applicant_id, main_subject, second_subject, sub_subject, rating_score, average_attestation_score, publish_time)
 VALUES ('not processed', 1, 12, 184, 141, 144, 0, 9.1, now());
