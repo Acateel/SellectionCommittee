@@ -8,6 +8,7 @@ import com.SelectionCommittee.SelectionCommittee.validators.ApplicantValidator;
 import com.SelectionCommittee.SelectionCommittee.validators.UserValidator;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,9 @@ public class RegistrationController {
     UserRepository userRepository;
     @Autowired
     ApplicantRepository applicantRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private static final String REGISTER_PAGE = "auth/register";
     private static final String APPLICANT_ATTRIBUTE_KEY = "applicant";
@@ -59,16 +63,14 @@ public class RegistrationController {
 
         boolean userChecked = UserValidator.checkUser(user, passwordRepeat, model);
         boolean applicantChecked = ApplicantValidator.checkApplicant(applicant, model);
-        if(userChecked && applicantChecked){
+        if (userChecked && applicantChecked) {
             // add user and applicant to DB
-            if(!addToDB(user, applicant)){
+            if (!addToDB(user, applicant)) {
                 model.addAttribute("user_exist_error", true);
                 return REGISTER_PAGE;
-            }
-            else{
+            } else {
                 model.addAttribute("registration_complete", true);
                 model.addAttribute("login", user.getLogin());
-                model.addAttribute("password", user.getPassword());
                 return "auth/login";
             }
         }
@@ -98,15 +100,19 @@ public class RegistrationController {
         return user;
     }
 
-    private boolean addToDB(UserEntity user, ApplicantEntity applicant){
+    private boolean addToDB(UserEntity user, ApplicantEntity applicant) {
         var userInDB = userRepository.findByLogin(user.getLogin());
-        if(userInDB.isPresent()){
+        if (userInDB.isPresent()) {
             log.warn("User exist, userId={}", userInDB.get().getId());
             return false;
         }
         applicantRepository.save(applicant);
         ApplicantEntity applicantInDB = applicantRepository.findByLastNameAndNameAndSurname(applicant.getLastName(), applicant.getName(), applicant.getSurname());
         user.setApplicantId(applicantInDB.getId());
+
+        // password encryption
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userRepository.save(user);
         log.info("Save user in DB");
         return true;
