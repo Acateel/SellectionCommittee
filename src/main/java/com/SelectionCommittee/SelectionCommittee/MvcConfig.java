@@ -10,8 +10,15 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
+/**
+ * MvcConfig is responsible for localization
+ */
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+    /**
+     * Set default locale
+     * @return default SessionLocaleResolver
+     */
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
@@ -19,6 +26,10 @@ public class MvcConfig implements WebMvcConfigurer {
         return slr;
     }
 
+    /**
+     * Change locale
+     * @return LocaleChangeInterceptor
+     */
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
@@ -26,6 +37,10 @@ public class MvcConfig implements WebMvcConfigurer {
         return lci;
     }
 
+    /**
+     * Add interceptors for localization
+     * @param registry InterceptorRegistry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
