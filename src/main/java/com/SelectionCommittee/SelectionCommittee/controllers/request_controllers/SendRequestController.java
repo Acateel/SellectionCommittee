@@ -38,7 +38,7 @@ public class SendRequestController {
     private static final String SEND_REQUEST_PAGE = "send_request";
 
     @GetMapping("/send_request")
-    public String getSendRequestForm(@RequestParam int facultyId, Model model) {
+    public String getSendRequestForm(@RequestParam int facultyId) {
         log.info("show send request form");
         this.facultyId = facultyId;
         return SEND_REQUEST_PAGE;
