@@ -20,6 +20,13 @@ public class RequestsModerationController {
     @Autowired
     protected RequestRepository requestRepository;
 
+    /**
+     * Add request to realize
+     *
+     * @param facultyId faculty id for redirect
+     * @param requestId request id
+     * @return redirect for requests table page
+     */
     @GetMapping("/add_to_realize")
     public String addToRealize(@RequestParam int facultyId, @RequestParam int requestId) {
         log.info("Add to realize request, faculty id={} , applicant id={}", facultyId, requestId);
@@ -34,6 +41,11 @@ public class RequestsModerationController {
         return "redirect:/request?facultyId=" + facultyId;
     }
 
+    /**
+     * Set request status (budget or not budget)
+     *
+     * @param request request entity from DB
+     */
     private void setStatus(RequestEntity request) {
         String status = request.getStatus();
         if (Objects.equals(status, "not processed")) {
