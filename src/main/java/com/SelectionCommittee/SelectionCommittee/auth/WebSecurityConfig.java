@@ -11,17 +11,29 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * WebSecurityConfig - configuration security
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     protected UserDetailsService myUserDetailsService;
 
+    /**
+     * Configuration where take UserDerailService and set password encoder
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(myUserDetailsService).passwordEncoder(getPasswordEncoder());
     }
 
+    /**
+     * definition of access to url,
+     * without registration can order to the main page, list of faculties, applications, registration and login pages
+     * applicant can also order to send request and applicant info pages
+     * admin can order to admin functions
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -49,6 +61,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
+    /**
+     * Set password encoder
+     * @return Bcrypt password encoder
+     */
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
