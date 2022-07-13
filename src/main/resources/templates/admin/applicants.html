@@ -26,7 +26,8 @@
                 <td th:text="${applicant.lastName}"/>
                 <td th:text="${applicant.name}"/>
                 <td th:text="${applicant.surname}"/>
-                <td th:text="${applicant.block}"/>
+                <td class="text-danger" th:if="${applicant.block == 1}" th:text="#{blocked}"/>
+                <td class="text-success" th:if="${applicant.block == 0}" th:text="#{unlocked}"/>
                 <td>
                     <a th:href="@{/block_applicant(applicantId=${applicant.id})}" th:text="#{block}"/>
                 </td>
