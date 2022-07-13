@@ -43,6 +43,11 @@
             <td style="width: 15%" th:text="#{education}"/>
             <td th:text="${applicant.nameEducationalInstitution}"/>
         </tr>
+        <tr>
+            <td style="width: 15%" th:text="#{block_status}"/>
+            <td class="text-danger" th:if="${applicant.block == 1}" th:text="#{blocked}"/>
+            <td class="text-success" th:if="${applicant.block == 0}" th:text="#{unlocked}"/>
+        </tr>
         </tbody>
     </table>
     <form enctype="multipart/form-data"
