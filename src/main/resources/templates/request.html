@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title th:text="#{request}"></title>
-    <div th:replace="blocks/bootstrapHead :: bootstrap"></div>
+    <th:block th:replace="blocks/bootstrapHead :: bootstrap"/>
 </head>
 <body>
 <div th:replace="blocks/navbar :: navbar"></div>
@@ -41,7 +41,15 @@
             <td th:text="${request.subSubject}"/>
             <td th:text="${request.ratingScore}"/>
             <td th:text="${request.averageAttestationScore}"/>
-            <td th:text="${request.status}"/>
+            <td th:switch="${request.status}">
+                <th:block th:case="'not processed'" th:text="#{not_processed}"/>
+                <th:block th:case="'budget'" th:text="#{budget}"/>
+                <th:block th:case="'recommend budget'" th:text="#{recommend_budget}"/>
+                <th:block th:case="'contract'" th:text="#{contract}"/>
+                <th:block th:case="'recommend contract'" th:text="#{recommend_contract}"/>
+                <th:block th:case="'allowed'" th:text="#{allowed}"/>
+                <th:block th:case="'not allowed'" th:text="#{not_allowed}"/>
+            </td>
             <td sec:authorize="hasAuthority('admin')">
                 <a th:href="@{/add_to_realize(facultyId=${faculty.id}, requestId=${request.id})}" th:text="#{add_to_realize}"/>
             </td>
