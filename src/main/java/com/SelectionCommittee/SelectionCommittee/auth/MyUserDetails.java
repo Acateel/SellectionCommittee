@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class MyUserDetails implements UserDetails {
 
-    protected transient UserEntity user;
+    protected UserEntity user;
 
     public MyUserDetails(UserEntity user) {
         this.user = user;
