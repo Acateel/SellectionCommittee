@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title th:text="#{login}"/>
     <th:block th:replace="blocks/bootstrapHead :: bootstrap"/>
@@ -63,12 +62,8 @@
                     <button type="button" class="btn btn-link" th:text="#{back}"/>
                 </a>
 
-                <div class="text-danger" th:if="${param.error}">
-                    Invalid username and password.
-                </div>
-                <div class="text-danger" th:if="${param.logout}">
-                    You have been logged out.
-                </div>
+                <div class="text-danger" th:if="${param.error}" th:text="#{login_error}"/>
+                <div class="text-danger" th:if="${param.logout}" th:text="#{login_logout}"/>
             </form>
         </div>
     </div>
