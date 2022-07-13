@@ -19,7 +19,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="text" class="form-control"
-               th:placeholder="#{enter}+' ' + #{email}"
+               th:placeholder="#{enter_email}"
                th:value="${user.login}"
                name="email" id="email" required/>
         <div class="text-danger" th:if="${email_error}" th:text="#{email_error}"/>
@@ -30,7 +30,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="password" class="form-control"
-               th:placeholder="#{enter}+' ' + #{password}"
+               th:placeholder="#{enter_password}"
                th:value="${user.password}"
                name="psw" id="psw" required/>
         <div class="text-danger" th:if="${password_error}" th:text="#{password_error}"/>
@@ -40,7 +40,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="password" class="form-control"
-               th:placeholder="#{enter}+' ' + #{password}"
+               th:placeholder="#{enter_password_repeat}"
                th:value="${psw_repeat}"
                name="psw-repeat" id="psw-repeat" required/>
         <div class="text-danger" th:if="${password_repeat_error}" th:text="#{password_repeat_error}"/>
@@ -50,7 +50,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="text" class="form-control"
-               th:placeholder="#{enter}+' ' + #{lastname}"
+               th:placeholder="#{enter_lastname}"
                th:value="${applicant.lastName}"
                name="lastname" id="lastname" required/>
         <div class="text-danger" th:if="${lastname_error}" th:text="#{last_name_error}"/>
@@ -60,7 +60,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="text" class="form-control"
-               th:placeholder="#{enter}+' ' + #{firstname}"
+               th:placeholder="#{enter_firstname}"
                th:value="${applicant.name}"
                name="firstname" id="firstname" required/>
         <div class="text-danger" th:if="${firstname_error}" th:text="#{first_name_error}"/>
@@ -70,7 +70,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="text" class="form-control"
-               th:placeholder="#{enter}+' ' + #{surname}"
+               th:placeholder="#{enter_surname}"
                th:value="${applicant.surname}"
                name="surname" id="surname" required/>
         <div class="text-danger" th:if="${surname_error}" th:text="#{surname_error}"/>
@@ -80,7 +80,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="text" class="form-control"
-               th:placeholder="#{enter}+' ' + #{city}"
+               th:placeholder="#{enter_city}"
                th:value="${applicant.city}"
                name="city" id="city" required/>
         <div class="text-danger" th:if="${city_error}" th:text="#{city_error}"/>
@@ -90,7 +90,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="text" class="form-control"
-               th:placeholder="#{enter}+' ' + #{region}"
+               th:placeholder="#{enter_region}"
                th:value="${applicant.region}"
                name="region" id="region" required/>
         <div class="text-danger" th:if="${region_error}" th:text="#{region_error}"/>
@@ -100,7 +100,7 @@
             <span class="text-danger">*</span>
         </label>
         <input type="text" class="form-control"
-               th:placeholder="#{enter}+' ' + #{education}"
+               th:placeholder="#{enter_education}"
                th:value="${applicant.nameEducationalInstitution}"
                name="education" id="education" required/>
         <div class="text-danger" th:if="${education_error}" th:text="#{institution_error}"/>
