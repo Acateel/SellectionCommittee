@@ -25,7 +25,8 @@
         <label for="budget_seats">
             <th:block th:text="#{budget_seats}"/>
             <span class="text-danger">*</span></label>
-        <input type="text" class="form-control"
+        <input type="number" min="0"
+               class="form-control"
                th:placeholder="#{enter} + ' ' + #{budget_seats}"
                th:value="${faculty.budgetSeats}"
                name="budget_seats"
@@ -34,7 +35,8 @@
         <label for="total_seats">
             <th:block th:text="#{total_sears}"/>
             <span class="text-danger">*</span></label>
-        <input type="text" class="form-control"
+        <input type="number" min="1"
+               class="form-control"
                th:placeholder="#{enter} + ' ' + #{total_sears}"
                th:value="${faculty.totalSeats}"
                name="total_seats"
